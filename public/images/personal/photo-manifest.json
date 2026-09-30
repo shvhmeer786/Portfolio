@@ -1,0 +1,43 @@
+[
+  {
+    "source": "IMG_7950.HEIC",
+    "websiteFile": "photo-01.png",
+    "conversion": "Full-resolution lossless PNG for browser compatibility; HEIC original retained in source-photos."
+  },
+  {
+    "source": "IMG_6051.JPG",
+    "websiteFile": "photo-02.jpg",
+    "sha256": "4fc4f8728ea54c55d77e8e1cbffdaa4ad43df7420d66447a4b0009c9e7f4bb2d",
+    "unchanged": true
+  },
+  {
+    "source": "dji_mimo_20260712_204548_20260712204548_1783916513059_photo.JPG",
+    "websiteFile": "photo-03.jpg",
+    "sha256": "f6a0e5d77ac938e655b539d520751c48fdb4432cdc20f071c97d1bd936a26f6e",
+    "unchanged": true
+  },
+  {
+    "source": "IMG_2290 2.jpg",
+    "websiteFile": "photo-04.jpg",
+    "sha256": "83df5a5ddcfb6eb9b9f139f54f825536ceb3d9b8c5a6b1e8ec1fe9ac4eb9fa80",
+    "unchanged": true
+  },
+  {
+    "source": "IMG_2943.JPG",
+    "websiteFile": "photo-05.jpg",
+    "sha256": "d4bc01f64ed30247a1fcf5ea08daaf4654a78a74dfb7ff2a22800062d06f9aff",
+    "unchanged": true
+  },
+  {
+    "source": "DSC02806.JPG",
+    "websiteFile": "photo-06.jpg",
+    "sha256": "9c300b3fab60721111583556c15d0eb64831ccaf352145b197188982be172a23",
+    "unchanged": true
+  },
+  {
+    "source": "IMG_3667.JPG",
+    "websiteFile": "photo-07.jpg",
+    "sha256": "cc581ba142ee2b9475afa768443227fa396403a954f757c72aee5db9f35fc474",
+    "unchanged": true
+  }
+]
