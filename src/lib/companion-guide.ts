@@ -4,7 +4,6 @@ export const guideTargets = {
   main: { title: 'Meet Shahmeer.', description: `${profile.introduction} Based in ${profile.location}.`, question: 'Who is Shahmeer?' },
   photos: { title: 'Life beyond the screen.', description: 'A few places, faces, and small pauses—another part of Shahmeer’s story.', question: 'Tell me about the photographs' },
   experience: { title: 'Research, building, and learning.', description: 'Seven roles across applied science, machine learning, and building a company. Company names and logos open their websites.', question: 'Tell me about his experience' },
-  about: { title: 'Beyond the work.', description: profile.personal, question: 'Who is Shahmeer?' },
   contact: { title: 'A good conversation starts here.', description: `A research idea, a collaboration, or a hello—reach Shahmeer at ${profile.email}.`, question: 'How can I contact Shahmeer?' },
   ...Object.fromEntries(experiences.map(entry => [`experience-${entry.slug}`, { title: entry.organization === 'Orena' ? 'This is what Shahmeer’s building now.' : `${entry.organization} · ${entry.title}`, description: `${entry.summary} ${entry.date}.`, question: `Tell me about ${entry.organization} ${entry.title}` }])),
 } as Record<string, { title: string; description: string; question: string }>;
@@ -25,7 +24,7 @@ export function getCompanionAction(question: string): CompanionAction | null {
     : /\b(photo|photos|picture|pictures|slideshow|gallery)\b/.test(q) ? 'photos'
     : /\b(contact|email|hello)\b/.test(q) ? 'contact'
     : /\b(experience|roles|work|career)\b/.test(q) ? 'experience'
-    : /\b(about|personality)\b/.test(q) ? 'about'
+    : /\b(about|personality)\b/.test(q) ? 'main'
     : /\b(top|home|intro|introduction)\b/.test(q) ? 'main' : null;
   return target && guideTargets[target] ? { kind: 'navigate', target } : null;
 }

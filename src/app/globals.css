@@ -36,7 +36,7 @@
 /* A typographic signature to close the portfolio. */
 .footer-information{display:grid;grid-template-columns:1fr 1.25fr .7fr auto;gap:52px;border-top:1px solid var(--line);padding-top:34px;align-items:start}
 .footer-information-block{min-width:0;font-size:14px;line-height:1.55}.footer-information-block h3{font-size:13px;letter-spacing:0;color:var(--soft);font-weight:400;margin-bottom:12px}.footer-information-block p{max-width:310px;color:var(--ink)}.footer-note>span{display:block;margin-top:9px;color:var(--muted);font-size:13px}.footer-clock{display:flex;flex-direction:column;gap:2px}.footer-clock time{font-variant-numeric:tabular-nums;font-size:15px;color:var(--ink)}.clock-location{font-size:12px;color:var(--muted);margin-top:5px}.footer-navigation a{display:flex;align-items:center;gap:6px;width:fit-content;min-height:28px;text-decoration:underline;text-underline-offset:4px;text-decoration-color:#b8b8b1}.footer-seal{font-family:'Newsreader',Georgia,serif;width:52px;height:52px;border:1px solid var(--ink);border-radius:50%;display:grid;place-items:center;font-size:25px;letter-spacing:-.07em;transform:rotate(-12deg);margin-top:2px}
-.footer-signature{container-type:inline-size;padding-top:64px;padding-bottom:31px}.footer-wordmark{font-family:'Newsreader',Georgia,serif;font-size:clamp(52px,18cqw,224px);font-weight:400;letter-spacing:-.065em;line-height:.95;white-space:nowrap;color:var(--ink);padding-top:.08em}.signature-dot{margin-left:-.015em}.signature-caption{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-top:23px;gap:20px}.site-footer .footer-bottom{padding-bottom:160px}
+.footer-signature{container-type:inline-size;padding-top:64px;padding-bottom:31px}.footer-wordmark{position:relative;display:grid;grid-template-columns:minmax(0,1fr);width:100%;color:var(--ink);outline-offset:8px}.footer-name{grid-area:1 / 1;align-self:center;width:max-content;white-space:nowrap;font-weight:400;transition:none;animation:none}.footer-name-english{font-family:'Newsreader',Georgia,serif;font-size:18cqw;letter-spacing:-.065em;line-height:1.1;visibility:hidden}.footer-name-arabic{font-family:'Noto Naskh Arabic',serif;font-size:28cqw;letter-spacing:0;line-height:1.2;visibility:visible}.footer-name-measure-box{position:absolute;width:0;height:0;overflow:hidden;pointer-events:none}.footer-name-measure{position:absolute;left:0;top:0;width:max-content;font-size:100px;white-space:nowrap;visibility:hidden;pointer-events:none}.footer-wordmark:focus-visible .footer-name.footer-name-english{visibility:visible}.footer-wordmark:focus-visible .footer-name.footer-name-arabic{visibility:hidden}@media(hover:hover){.footer-wordmark:hover .footer-name.footer-name-english{visibility:visible}.footer-wordmark:hover .footer-name.footer-name-arabic{visibility:hidden}}.signature-caption{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-top:23px;gap:20px}.site-footer .footer-bottom{padding-bottom:160px}
 @media(hover:hover) and (pointer:fine){.footer-navigation a:hover{text-decoration-color:var(--ink)}}
 @media(max-width:760px){.footer-information{grid-template-columns:1fr 1fr;gap:30px 24px;padding-top:27px}.footer-note{grid-row:2;grid-column:1 / -1;padding-right:50px}.footer-seal{grid-row:2;grid-column:2;justify-self:end;align-self:end;width:40px;height:40px;font-size:22px}.footer-signature{padding-top:46px;padding-bottom:25px}.signature-caption{font-size:10px;margin-top:17px;gap:14px}.footer-information-block{font-size:13px}.footer-navigation{justify-self:end;min-width:122px}.footer-navigation a{min-height:36px}.footer-note>span{font-size:12px}.site-footer .footer-bottom{padding-bottom:160px;font-size:11px;padding-right:0}.clock-location{font-size:11px}}
 .hero-location{font-size:14px;color:var(--muted);margin-top:15px}.footer-note p+p{margin-top:8px}
@@ -103,15 +103,15 @@
 @media(prefers-reduced-motion:reduce){.wordmark-name,.hero-socials a{transition:none}}
 
 /* A pocket-sized turntable, with Spotify's player available on demand. */
-.footer-record{position:relative;width:64px;margin-top:0;z-index:3}
-.record-toggle{position:relative;display:block;width:64px;height:64px;border-radius:50%}
-.vinyl-disc{position:absolute;left:1px;top:7px;width:54px;height:54px;border:1px solid #0b0b0b;border-radius:50%;background:repeating-radial-gradient(circle at center,#191919 0 1px,#2b2b2b 1px 1.7px,#191919 1.7px 2.8px);box-shadow:0 2px 5px #1717171c;animation:vinyl-turn 4s linear infinite;animation-play-state:paused;display:grid;place-items:center}
+.footer-record{position:relative;width:84px;margin-top:0;z-index:3}
+.record-toggle{position:relative;display:block;width:84px;height:84px;border-radius:50%}
+.vinyl-disc{position:absolute;left:1px;top:9px;width:72px;height:72px;border:1px solid #0b0b0b;border-radius:50%;background:repeating-radial-gradient(circle at center,#191919 0 1px,#2b2b2b 1px 1.7px,#191919 1.7px 2.8px);box-shadow:0 2px 5px #1717171c;animation:vinyl-turn 4s linear infinite;animation-play-state:paused;display:grid;place-items:center}
 .vinyl-disc:after{content:'';position:absolute;inset:5px;border:1px solid #ffffff16;border-radius:50%}
-.vinyl-label{width:19px;height:19px;border:1px solid #bb9b76;border-radius:50%;background:#a98561;position:relative;display:grid;place-items:center}
+.vinyl-label{width:25px;height:25px;border:1px solid #bb9b76;border-radius:50%;background:#a98561;position:relative;display:grid;place-items:center}
 .vinyl-label:before{content:'';position:absolute;left:3px;top:5px;width:7px;height:1px;background:#e5d4bf;box-shadow:0 3px 0 #e5d4bf;transform:rotate(-25deg)}
 .vinyl-label i{width:3px;height:3px;border-radius:50%;background:#171717;border:1px solid #f6eadb;z-index:1}
-.record-control{position:absolute;right:0;bottom:0;width:22px;height:22px;border-radius:50%;border:1px solid #c8c8c0;background:var(--paper);display:grid;place-items:center;box-shadow:0 1px 4px #1717170c;transition:background 160ms,color 160ms}
-.record-arm{position:absolute;inset:0;width:64px;height:64px;pointer-events:none;fill:#adada6;stroke:#9b9b92;stroke-width:1}
+.record-control{position:absolute;right:0;bottom:0;width:26px;height:26px;border-radius:50%;border:1px solid #c8c8c0;background:var(--paper);display:grid;place-items:center;box-shadow:0 1px 4px #1717170c;transition:background 160ms,color 160ms}
+.record-arm{position:absolute;inset:0;width:84px;height:84px;pointer-events:none;fill:#adada6;stroke:#9b9b92;stroke-width:1}
 .record-arm path{fill:none;stroke:#adada6;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
 .record-arm .record-stylus{fill:#d9d9d2;stroke:#96968d;stroke-width:.7}
 .footer-record[data-playing=true] .vinyl-disc{animation-play-state:running}
@@ -125,7 +125,7 @@
 .record-spotify-link{display:flex;align-items:center;gap:4px;width:fit-content;font-size:10px;color:var(--muted);margin-top:10px;padding:3px 0;text-decoration:underline;text-underline-offset:3px}
 @keyframes vinyl-turn{to{transform:rotate(360deg)}}
 @media(hover:hover){.record-toggle:hover .record-control{background:var(--ink);color:var(--paper)}.record-popover-heading button:hover{background:var(--surface)}}
-@media(max-width:760px){.footer-record{grid-row:2;grid-column:2;justify-self:end;align-self:end}.footer-note{padding-right:82px}.record-popover{width:300px}}
+@media(max-width:760px){.footer-record{grid-row:2;grid-column:2;justify-self:end;align-self:end}.footer-note{padding-right:106px}.record-popover{width:300px}}
 @media(prefers-reduced-motion:reduce){.vinyl-disc{animation:none}}
 /* Opening the player gives it its own shelf below the footer details. */
 .footer-information{position:relative;transition:margin-bottom 240ms var(--ease)}

@@ -1,4 +1,4 @@
-import { ArrowUpRight, ArrowRight } from '@phosphor-icons/react/dist/ssr';
+import { ArrowUpRight } from '@phosphor-icons/react/dist/ssr';
 import { profile, experiences } from '@/content/portfolio';
 import { PhotoGallery } from '@/components/photo-gallery';
 import { Reveal } from '@/components/reveal';
@@ -32,6 +32,5 @@ export default function Home() {
         </Reveal>)}
       </ExperienceHighlight>
     </section>
-    <section id="about" className="about-section section-gap" aria-labelledby="about-heading"><Reveal className="about-inner"><div><h2 id="about-heading">Beyond the work.</h2><p className="personal-intro">A little room for everything else.</p></div><div className="personal-copy"><p>{profile.personal}</p><a className="text-link" href="#intro-heading">Back to the pictures <ArrowRight size={17} /></a></div></Reveal></section>
   </main>;
 }

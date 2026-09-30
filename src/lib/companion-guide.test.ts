@@ -7,6 +7,7 @@ test('distinguishes navigation instructions from factual questions', () => {
   assert.deepEqual(getCompanionAction('Show me his Microsoft experience'), { kind: 'navigate', target: 'experience-microsoft' });
   assert.deepEqual(getCompanionAction('Take me back to the pictures'), { kind: 'navigate', target: 'photos' });
   assert.deepEqual(getCompanionAction('Scroll to contact'), { kind: 'navigate', target: 'contact' });
+  assert.deepEqual(getCompanionAction('Show me the about section'), { kind: 'navigate', target: 'main' });
   assert.deepEqual(getCompanionAction('Take the tour'), { kind: 'tour' });
 });
 test('navigation stays within known portfolio destinations and respects negation', () => {

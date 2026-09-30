@@ -5,7 +5,7 @@ import { usePathname } from 'next/navigation';
 import { ArrowUpRight, List, X } from '@phosphor-icons/react';
 import { AnimatedWordmark } from './animated-wordmark';
 
-const links = [{ label: 'Experience', href: '/#experience' }, { label: 'About', href: '/#about' }, { label: 'Contact', href: '/#contact' }];
+const links = [{ label: 'Experience', href: '/#experience' }, { label: 'Contact', href: '/#contact' }];
 export function Header() {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
