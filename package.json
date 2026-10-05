@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start --hostname 127.0.0.1 --port 3000",
     "typecheck": "tsc --noEmit",
-    "test": "tsx --test src/lib/*.test.ts"
+    "test": "tsx --test src/lib/*.test.ts",
+    "optimize:photos": "node scripts/optimize-photos.cjs"
   },
   "dependencies": {
     "@fontsource/geist": "5.3.0",
@@ -25,6 +26,7 @@
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "tsx": "^4.20.0",
-    "typescript": "^5.9.0"
+    "typescript": "^5.9.0",
+    "sharp": "0.35.5"
   }
 }

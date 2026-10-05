@@ -4,6 +4,15 @@ import Image from 'next/image';
 import { ArrowLeft, ArrowRight, Pause, Play } from '@phosphor-icons/react';
 import { useReducedMotion } from 'motion/react';
 import { photos } from '@/content/portfolio';
+import photoAssets from '@/content/photo-assets.json';
+
+const photoDirectories: Record<string, string> = photoAssets;
+const photoLoader = ({ src, width }: { src: string; width: number }) => `${photoDirectories[src]}/${width}.webp`;
+function photoSizes(photo: { width: number; height: number }) {
+  const ratio = Math.min(1, photo.width / photo.height / 0.75);
+  const maximum = (410 * ratio).toFixed(2);
+  return `(max-width: 760px) min(${maximum}px, calc((100vw - 44px) * ${ratio})), min(${maximum}px, calc((100vw - 190px) * ${0.517 * ratio}))`;
+}
 
 export function PhotoGallery() {
   const [index, setIndex] = useState(0);
@@ -33,7 +42,7 @@ export function PhotoGallery() {
   const frameWidth = `${Math.min(100, photos[index].width / photos[index].height / 0.75 * 100)}%`;
   return <figure id="photos" className="photo-gallery" aria-roledescription="carousel" aria-label="Personal photo slideshow" onPointerEnter={e => { if (e.pointerType === 'mouse') setHeld(true); }} onPointerLeave={() => setHeld(false)} onFocusCapture={() => setFocused(true)} onBlurCapture={e => { if (!e.currentTarget.contains(e.relatedTarget)) setFocused(false); }}>
     <div className="photo-stage-space"><div className="photo-stage" style={{ width: frameWidth }} onPointerDown={e => { if (e.pointerType === 'touch') touchStart.current = e.clientX; }} onPointerCancel={() => { touchStart.current = null; }} onPointerUp={e => { if (touchStart.current !== null) { const delta = e.clientX - touchStart.current; if (Math.abs(delta) > 50) { go(delta < 0 ? 1 : -1); setPlaying(false); } touchStart.current = null; } }}>
-      {photos.map((photo, i) => <Image key={photo.src} src={photo.src} alt={i === index ? photo.alt : ''} aria-hidden={i !== index} unoptimized onLoad={() => setLoaded(ready => ready.map((value, position) => position === i ? true : value))} fill sizes="(max-width: 760px) 100vw, 550px" preload={i === 0} loading={i === 0 ? undefined : 'eager'} draggable={false} className={`gallery-photo ${i === index ? 'is-current' : i === previous ? 'is-previous' : ''}`} />)}
+      {photos.map((photo, i) => (i === 0 || loaded[0]) && <Image key={photo.src} src={photo.src} alt={i === index ? photo.alt : ''} aria-hidden={i !== index} loader={photoLoader} onLoad={() => setLoaded(ready => ready.map((value, position) => position === i ? true : value))} fill sizes={photoSizes(photo)} preload={i === 0} loading={i === 0 ? undefined : 'eager'} fetchPriority={i === 0 ? undefined : 'low'} draggable={false} className={`gallery-photo ${i === index ? 'is-current' : i === previous ? 'is-previous' : ''}`} />)}
     </div></div>
     <figcaption className="gallery-caption">
       <div className="photo-caption" style={{ width: frameWidth }}><span>{photos[index].caption}</span><span className="photo-count">{String(index + 1).padStart(2, '0')} / {String(photos.length).padStart(2, '0')}</span></div>
