@@ -28,7 +28,7 @@ export function FooterWidgetStack() {
   const [selection, setSelection] = useState({ index: 0, direction: 1, instant: false });
   const [near, setNear] = useState(false);
   const frame = useRef<HTMLDivElement>(null);
-  const pointer = useRef<{ id: number; x: number; y: number; nextX: number; nextY: number } | null>(null);
+  const pointer = useRef<{ id: number; x: number; y: number } | null>(null);
   const reduced = useReducedMotion();
   const offset = useMotionValue(0);
   const smooth = useSpring(offset, { stiffness: 600, damping: 42 });
@@ -50,14 +50,13 @@ export function FooterWidgetStack() {
 
   function begin(event: PointerEvent<HTMLDivElement>) {
     if (!event.isPrimary || event.button !== 0 || (event.target as HTMLElement).closest('button, a, iframe, input')) return;
-    pointer.current = { id: event.pointerId, x: event.clientX, y: event.clientY, nextX: event.clientX, nextY: event.clientY };
+    pointer.current = { id: event.pointerId, x: event.clientX, y: event.clientY };
     event.currentTarget.setPointerCapture(event.pointerId);
     event.currentTarget.dataset.dragging = 'true';
   }
   function move(event: PointerEvent<HTMLDivElement>) {
     const current = pointer.current;
-    if (!current || current.id !== event.pointerId) return;
-    current.nextX = event.clientX; current.nextY = event.clientY;
+    if (!current || current.id !== event.pointerId || !(event.buttons & 1)) return;
     offset.set(Math.max(-80, Math.min(80, (event.clientY - current.y) * .55)));
   }
   function end(event: PointerEvent<HTMLDivElement>, cancelled = false) {
@@ -65,7 +64,8 @@ export function FooterWidgetStack() {
     if (!current || current.id !== event.pointerId) return;
     pointer.current = null;
     event.currentTarget.dataset.dragging = 'false';
-    const step = cancelled ? 0 : widgetSwipe(current.nextX - current.x, current.nextY - current.y);
+    // Decide from the actual release point, never a stale hover/move position.
+    const step = cancelled ? 0 : widgetSwipe(event.clientX - current.x, event.clientY - current.y);
     if (step) select(step); else offset.set(0);
     if (event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId);
   }
