@@ -1,3 +1,5 @@
+import type { Metadata } from 'next';
+import { SITE_URL } from '@/lib/site';
 import { ArrowUpRight } from '@phosphor-icons/react/dist/ssr';
 import { profile, experiences } from '@/content/portfolio';
 import { PhotoGallery } from '@/components/photo-gallery';
@@ -5,6 +7,11 @@ import { Reveal } from '@/components/reveal';
 import Image from 'next/image';
 import { SocialLinks } from '@/components/social-links';
 import { ExperienceHighlight } from '@/components/experience-highlight';
+
+export const metadata: Metadata = {
+  alternates: { canonical: SITE_URL },
+  robots: { index: true, follow: true },
+};
 
 export default function Home() {
   return <main id="main" className="home-page">
