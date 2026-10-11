@@ -282,3 +282,56 @@ body{font-size:18px;line-height:1.65}
 .footer-playground .footer-information:has(.record-popover:not([hidden])){position:relative;z-index:3}
 @media(max-width:760px){.footer-postcard{width:92px;height:62px}.footer-art-space{height:92px}.footer-playground .footer-signature{padding-top:18px}.footer-playground .signature-caption{margin-top:96px}.footer-art-space>span{font-size:11px}}
 @media(prefers-reduced-motion:reduce){.footer-postcard-art,.footer-postcard img{transition:none}.footer-postcard[data-dragging=true] .footer-postcard-art{transform:rotate(var(--postcard-rotation));transition:none}}
+
+/* A small stack combines live activity, local time, and the soundtrack. */
+.footer-information.footer-with-widgets{grid-template-columns:minmax(280px,380px) minmax(0,1fr) auto;gap:42px;margin-bottom:0}
+.footer-information.footer-with-widgets:has(.record-popover:not([hidden])){margin-bottom:0}
+.footer-widget-stack{min-width:0;width:100%;max-width:380px;position:relative;z-index:1}
+.widget-stack-frame{position:relative;height:268px;touch-action:pan-x;cursor:grab;outline-offset:6px;border-radius:24px;isolation:isolate}
+.widget-stack-frame[data-dragging=true]{cursor:grabbing}
+.widget-stack-back{position:absolute;inset:0;border:1px solid #44463a;background:#202219;border-radius:24px;pointer-events:none;transform-origin:50% 100%}
+.widget-stack-back-one{transform:translateY(9px) scale(.95);opacity:.65}
+.widget-stack-back-two{transform:translateY(17px) scale(.89);opacity:.35}
+.widget-stack-front{position:absolute;inset:0;border-radius:24px;overflow:hidden;isolation:isolate}
+.widget-panel{position:absolute;inset:0;padding:20px;background:#1e211a;border:1px solid #4b4f40;border-radius:24px;color:#f7f6f0;user-select:none;-webkit-user-select:none}
+.widget-panel[inert]{pointer-events:none}
+.widget-heading{display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:14px;line-height:1.5;color:#e0e1d6}
+.widget-heading>span:first-child{display:flex;gap:8px;align-items:center}
+.widget-heading>a{display:grid;place-items:center;min-width:28px;min-height:28px;color:#c4c7b7;border-radius:8px}
+.github-widget-total{position:relative;font-size:12px;color:#c4c7b7;margin-top:12px;line-height:1.5}
+.github-widget-total>span:first-child{font-size:26px;line-height:1.1;color:#f7f6f0;font-variant-numeric:tabular-nums}
+.github-widget-period{display:block;font-size:11px;margin-top:1px}
+.github-widget-calendar{display:block;width:100%;margin-top:12px;overflow:visible}
+.github-widget-calendar text{fill:#b4bba8;font-size:8px;font-family:inherit}
+.github-widget-bottom{display:flex;justify-content:space-between;gap:8px;align-items:center;font-size:9px;line-height:1.5;color:#a9b29a;margin-top:8px}
+.github-widget-legend{display:flex;gap:3px;align-items:center;white-space:nowrap}
+.github-widget-legend i{display:block;width:7px;height:7px;border-radius:2px}
+.github-widget-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;height:180px;gap:12px;color:#bcc4ad;font-size:13px;text-align:center}
+.github-widget-empty button{display:flex;gap:5px;align-items:center;min-height:36px;text-decoration:underline;text-underline-offset:4px}
+.widget-stack-controls{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:22px;color:#bbbdb0;font-size:11px;line-height:1.4}
+.widget-stack-dots,.widget-stack-arrows{display:flex;align-items:center}
+.widget-stack-dots button{display:grid;place-items:center;width:24px;height:32px;border-radius:8px}
+.widget-stack-dots i{width:5px;height:5px;background:#646b57;border-radius:50%}
+.widget-stack-dots button[aria-pressed=true] i{background:#f7f6f0}
+.widget-stack-arrows button{display:grid;place-items:center;min-width:30px;min-height:32px;border-radius:8px;color:#e0e1d6}
+.widget-stack-frame:focus-visible,.widget-stack-controls button:focus-visible,.widget-panel a:focus-visible,.widget-panel button:focus-visible{outline:2px solid #f7f6f0;outline-offset:4px}
+.widget-live-dot{height:6px;width:6px;border-radius:50%;background:#90b476}
+.widget-clock-content{margin-top:35px}
+.widget-clock-content .footer-clock{gap:12px}
+.widget-clock-content .clock-date{font-size:15px;color:#c5c9ba}
+.widget-clock-content time{font-size:26px;line-height:1.25;color:#f7f6f0;letter-spacing:-.03em}
+.widget-clock-content .clock-location{font-size:12px;color:#b8bfa8}
+.widget-clock-note,.widget-song-note{position:absolute;bottom:20px;left:20px;right:20px;font-size:12px;line-height:1.5;color:#b8bfa8}
+.widget-song-content{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-top:29px}
+.widget-song-content h3{font-size:24px;font-weight:400;margin-bottom:7px}
+.widget-song-content p{font-size:12px;line-height:1.5;color:#bdc4af;max-width:150px}
+.widget-song .footer-record{position:static;flex-shrink:0}
+.widget-song .record-popover{top:auto;bottom:12px;left:12px;right:12px;width:auto;max-width:none;padding:10px;border-radius:14px;z-index:3;background:#24271e;color:#f7f6f0}
+.widget-song .record-status{font-size:10px;line-height:1.35}
+.widget-song .record-popover-heading,.widget-song .record-spotify-link,.widget-song .record-status{margin-inline:0}
+.widget-song .record-popover-heading{margin-bottom:7px}
+.widget-song .record-spotify-link{margin-top:7px}
+@media(hover:hover){.widget-heading>a:hover,.widget-stack-arrows button:hover,.widget-stack-dots button:hover{background:#3d4234}}
+@media(max-width:1000px){.footer-information.footer-with-widgets{grid-template-columns:minmax(280px,340px) minmax(0,1fr);gap:32px}.footer-with-widgets .footer-navigation{grid-column:2;grid-row:1;align-self:end;justify-self:start;margin-top:160px}}
+@media(max-width:760px){.footer-information.footer-with-widgets{grid-template-columns:minmax(0,1fr);gap:28px}.footer-widget-stack{max-width:380px;justify-self:center}.footer-with-widgets .footer-note{grid-row:auto;grid-column:auto;padding-right:0}.footer-with-widgets .footer-navigation{grid-column:auto;grid-row:auto;margin-top:0;justify-self:start}.widget-panel{padding:18px}.widget-clock-note,.widget-song-note{left:18px;right:18px}.widget-clock-content time{font-size:23px}.widget-song-content{gap:10px}.widget-song-content h3{font-size:22px}}
+@media(max-width:360px){.github-widget-bottom{font-size:8px}.github-widget-legend i{width:6px;height:6px}.widget-swipe-hint{font-size:10px}.widget-song .record-toggle{width:67px;height:67px}.widget-clock-content time{font-size:21px}}

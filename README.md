@@ -43,7 +43,7 @@ npm test
 npm run build
 ```
 
-Twenty-two tests cover factual companion responses, missing information, contact details, animation timing bounds, navigation intent, guide positioning, entrance replay/accessibility decisions, and rotated/lifted postcard drag bounds. The production build includes the home page, two sample project templates, a not-found page, and the chat route.
+Twenty-seven tests cover factual companion responses, missing information, contact details, animation timing bounds, navigation intent, guide positioning, entrance replay/accessibility decisions, rotated/lifted postcard drag bounds, public GitHub calendar parsing and date ranges, and widget swipe/wrap behavior. The production build includes the home page, two sample project templates, a not-found page, the chat route, and the GitHub activity route.
 
 ## Next content session
 
@@ -69,3 +69,11 @@ The built-in image-generation tool transformed the four supplied sources into ma
 The original font pairing is restored: Geist for body text, headings, and controls; Newsreader for the English header name. Locally bundled Latin subsets use swap loading, with the original regular and medium Geist weights; added bold overrides have been removed while the current text sizes and contrast are retained. Noto Naskh Arabic supplies the Arabic name. The footer signature stays in Arabic, with no language change on hover or focus. The previously supplied Michelangelus source files and license remain archived in `src/fonts/michelangelus/` but are no longer loaded by the website.
 
 The four painted entrance images also appear as small draggable postcards around the Arabic footer name. Their frame starts at the divider below “Say hello” and ends above the copyright line. Pointer capture and animation-frame updates keep dragging smooth, with a slight lift, velocity-responsive tilt, and a 220 ms release; bounds reserve space for every lifted/rotated corner. Arrow keys move a focused image (Shift moves farther), and Home restores its initial placement. Moved positions stay within the frame after resizing. Each postcard crossfades to the next artwork every 4.8 seconds, with 900 ms staggered starts; images stay steady during dragging. Cycling pauses outside the footer, in hidden tabs, and for reduced-motion preferences. The footer reuses the four cached 480 px WebP assets with lazy, low-priority loading, without new image files or animation dependencies.
+
+## Footer widget stack
+
+The footer combines GitHub activity, the existing Toronto clock, and the favourite-song player in one small stack. Swipe or drag up/down, use the arrow buttons or dots, or focus the stack and press the arrow keys. Keyboard switches and reduced-motion visits change cards immediately; pointer switches use short transform/opacity transitions. Inactive cards are removed, so the clock and song player only run while their card is displayed. Nothing plays automatically.
+
+Customize the order and enabled cards, GitHub username, and favourite song in `src/content/footer-widgets.ts`. The GitHub card shows the latest 26 calendar weeks with actual daily contribution counts and native date tooltips. These are GitHub contributions, rather than commits only. The server reads GitHub's public calendar at `/users/<username>/contributions`, validates its dates/counts, and returns JSON from `/api/github-activity`; it never embeds upstream HTML or needs a token. GitHub's calendar markup is not a stable versioned API, so a changed or unavailable calendar produces an honest error and a link to the profile, not simulated activity.
+
+Activity is requested only when the card is near the viewport and selected. Requests are cached for five minutes at the browser, CDN, and upstream-fetch layers, and refreshes pause when the card is offscreen, deselected, or the tab is hidden. GitHub may take time to add contributions to its own graph; the widget follows the public calendar's updates. The original entrance, Arabic signature, and bounded painted postcards remain intact.

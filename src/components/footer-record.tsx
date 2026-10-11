@@ -2,8 +2,9 @@
 import { useEffect, useRef, useState } from 'react';
 import { Play, Pause, X, ArrowUpRight } from '@phosphor-icons/react';
 import { loadSpotifyEmbed, type SpotifyController } from '@/lib/spotify-embed';
+import { favouriteSong } from '@/content/footer-widgets';
 
-const trackId = '1jBKtzlwTVtCrScpiiHiKT';
+const trackId = favouriteSong.id;
 const trackUrl = `https://open.spotify.com/track/${trackId}`;
 
 export function FooterRecord() {
@@ -39,7 +40,7 @@ export function FooterRecord() {
         embed = created;
         controller.current = created;
         const iframe = host.current?.querySelector('iframe');
-        if (iframe) iframe.title = 'Intimidated (feat. H.E.R.) by KAYTRANADA on Spotify';
+        if (iframe) iframe.title = `${favouriteSong.title} by ${favouriteSong.artist} on Spotify`;
         created.addListener('playback_update', event => {
           if (disposed) return;
           const active = !event.data.isPaused && !event.data.isBuffering;
@@ -84,7 +85,7 @@ export function FooterRecord() {
   }
 
   return <div className="footer-record" data-playing={playing}>
-    <button ref={record} className="record-toggle" onClick={toggle} aria-label={`${playing ? 'Pause' : 'Play'} Intimidated by KAYTRANADA featuring H.E.R.`} title="Intimidated · KAYTRANADA feat. H.E.R." aria-pressed={playing} aria-expanded={open} aria-controls="footer-soundtrack">
+    <button ref={record} className="record-toggle" onClick={toggle} aria-label={`${playing ? 'Pause' : 'Play'} ${favouriteSong.title} by ${favouriteSong.artist}`} title={`${favouriteSong.title} · ${favouriteSong.artist}`} aria-pressed={playing} aria-expanded={open} aria-controls="footer-soundtrack">
       <span className="vinyl-disc" aria-hidden="true"><span className="vinyl-label"><i /></span></span>
       <span className="record-control" aria-hidden="true">{playing ? <Pause weight="fill" size={11} /> : <Play weight="fill" size={11} />}</span>
       <svg className="record-arm" viewBox="0 0 64 64" aria-hidden="true"><circle cx="57" cy="8" r="3" /><path d="M57 8 48 31 42 34" /><path className="record-stylus" d="m41 30 4 2-3 7-4-2z" /></svg>
