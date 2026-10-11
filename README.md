@@ -43,7 +43,7 @@ npm test
 npm run build
 ```
 
-Nineteen tests cover factual companion responses, missing information, contact details, animation timing bounds, navigation intent, guide positioning, and entrance replay/accessibility decisions. The production build includes the home page, two sample project templates, a not-found page, and the chat route.
+Twenty-one tests cover factual companion responses, missing information, contact details, animation timing bounds, navigation intent, guide positioning, entrance replay/accessibility decisions, and rotated postcard drag bounds. The production build includes the home page, two sample project templates, a not-found page, and the chat route.
 
 ## Next content session
 
@@ -67,3 +67,5 @@ The built-in image-generation tool transformed the four supplied sources into ma
 ## Typography
 
 The original font pairing is restored: Geist for body text, headings, and controls; Newsreader for the English header name. Locally bundled Latin subsets use swap loading, with the original regular and medium Geist weights; added bold overrides have been removed while the current text sizes and contrast are retained. Noto Naskh Arabic supplies the Arabic name. The footer signature stays in Arabic, with no language change on hover or focus. The previously supplied Michelangelus source files and license remain archived in `src/fonts/michelangelus/` but are no longer loaded by the website.
+
+The four painted entrance images also appear as small draggable postcards in the footer. Their frame starts at the divider below “Say hello” and ends above the copyright line. Pointer capture and animation-frame updates keep dragging smooth; rotated corners remain inside the frame. Arrow keys move a focused image (Shift moves farther), and Home restores its initial placement. Moved positions stay within the frame after resizing. The footer uses the existing cached 480 px WebP assets with lazy, low-priority loading, without new image files or animation dependencies.
