@@ -66,4 +66,4 @@ The built-in image-generation tool transformed the four supplied sources into ma
 
 ## Typography
 
-The original font pairing is restored: Geist for body text, headings, and controls; Newsreader for the English name and signature. Locally bundled Latin subsets use swap loading, with regular, medium, and bold Geist weights to preserve the current readability improvements. Noto Naskh Arabic supplies the Arabic name. The previously supplied Michelangelus source files and license remain archived in `src/fonts/michelangelus/` but are no longer loaded by the website.
+The original font pairing is restored: Geist for body text, headings, and controls; Newsreader for the English name and signature. Locally bundled Latin subsets use swap loading, with the original regular and medium Geist weights; added bold overrides have been removed while the current text sizes and contrast are retained. Noto Naskh Arabic supplies the Arabic name. The previously supplied Michelangelus source files and license remain archived in `src/fonts/michelangelus/` but are no longer loaded by the website.

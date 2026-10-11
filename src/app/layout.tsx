@@ -2,7 +2,6 @@ import type { Metadata } from 'next';
 import { profile } from '@/content/portfolio';
 import '@fontsource/geist/latin-400.css';
 import '@fontsource/geist/latin-500.css';
-import '@fontsource/geist/latin-700.css';
 import '@fontsource/newsreader/latin-400.css';
 import '@fontsource/noto-naskh-arabic/400.css';
 import 'lenis/dist/lenis.css';
