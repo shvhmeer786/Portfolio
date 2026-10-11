@@ -70,6 +70,10 @@ The original font pairing is restored: Geist for body text, headings, and contro
 
 The four painted entrance images also appear as small draggable postcards around the Arabic footer name. Their frame starts at the divider below “Say hello” and ends above the copyright line. Pointer capture and animation-frame updates keep dragging smooth, with a slight lift, velocity-responsive tilt, and a 220 ms release; bounds reserve space for every lifted/rotated corner. Arrow keys move a focused image (Shift moves farther), and Home restores its initial placement. Moved positions stay within the frame after resizing. Each postcard crossfades to the next artwork every 4.8 seconds, with 900 ms staggered starts; images stay steady during dragging. Cycling pauses outside the footer, in hidden tabs, and for reduced-motion preferences. The footer reuses the four cached 480 px WebP assets with lazy, low-priority loading, without new image files or animation dependencies.
 
+## Experience hover
+
+The experience hover treatment uses one shared translucent glass layer beneath the text and logos, with a reflective bevel, a cursor-following glint, and a damped spring between rows. Pointer movement updates a motion value without re-rendering or measuring each row on every event. Keyboard focus positions the layer immediately; reduced-motion visits suppress the glint and movement, and forced-color mode uses a simple high-contrast outline. The glass is decorative and never intercepts links.
+
 ## Footer widget stack
 
 The footer combines GitHub activity, the existing Toronto clock, and the favourite-song player in one small stack. Swipe or drag up/down, use the arrow buttons or dots, or focus the stack and press the arrow keys. Keyboard switches and reduced-motion visits change cards immediately; pointer switches use short transform/opacity transitions. Inactive cards are removed, so the clock and song player only run while their card is displayed. Nothing plays automatically.
