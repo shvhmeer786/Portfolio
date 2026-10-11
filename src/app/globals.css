@@ -140,3 +140,62 @@
 h1,h2,h3,.wordmark,.footer-seal,.footer-name-english,.orena-initial.large,.arrival-copy p{letter-spacing:normal}
 @media(max-width:760px){.home-hero{grid-template-columns:minmax(0,1fr)}}
 @media(max-width:360px){.photo-dots{min-width:0}.photo-dots .dot-button{flex-shrink:1}}
+
+/* Readable Michelangelus typography: strong hierarchy and darker supporting text. */
+:root{--muted:#44443f;--soft:#575751}
+body{font-size:18px;line-height:1.65}
+.hero-biography{font-size:18px;line-height:1.75}
+.hero-location{font-size:16px}
+.desktop-nav{font-size:17px}
+.mobile-menu-toggle{font-size:16px}
+.mobile-nav a,.text-link{font-size:18px}
+.section-heading p,.project-link p{font-size:18px;line-height:1.7}
+.section-heading h2,.project-title h3{font-weight:700}
+.experience-info{min-width:0}
+.experience-identity h3{font-size:22px;font-weight:700;line-height:1.4}
+.experience-identity p{font-size:16px;color:var(--muted);line-height:1.6}
+.experience-summary{font-size:17px;line-height:1.7}
+.experience-team,.experience-meta{font-size:14px;line-height:1.6}
+.photo-caption{font-size:16px;color:var(--muted)}
+.photo-count,.sample-photo,.entry-meta,.experience-external-link{font-size:14px}
+.footer-information-block{font-size:16px;line-height:1.7}
+.footer-information-block h3{font-size:14px;font-weight:700;color:var(--muted)}
+.footer-clock time{font-size:17px}
+.clock-location,.footer-note>span,.signature-caption,.site-footer .footer-bottom{font-size:14px;line-height:1.6}
+.footer-navigation a{min-height:36px}
+.back-link,.detail-category,.detail-meta>span{font-size:16px}
+.detail-meta strong{font-size:17px}
+.detail-empty p{font-size:18px;line-height:1.75}
+.detail-side{font-size:16px}
+.hero-socials a{color:var(--muted)}
+.bot-label{font-size:13px}
+.bot-thought{font-size:15px;white-space:normal;line-height:1.6}
+.bot-panel-header h2{font-size:20px;font-weight:700;letter-spacing:normal}
+.bot-panel-header>div>span{font-size:14px}
+.chat-message{font-size:17px;line-height:1.7}
+.message-author{font-size:14px;font-weight:700}
+.answer-sources a,.chat-pending,.chat-error,.chat-suggestions button{font-size:15px}
+.chat-suggestions button{min-height:40px}
+.chat-form input{font-size:17px}
+.chat-form input::placeholder{color:var(--soft)}
+.chat-disclosure{font-size:13px;flex-wrap:wrap;line-height:1.6}
+.motion-toggle{font-size:13px;min-height:32px}
+.arrival-copy>span,.arrival-copy button,.invitation-eyebrow,.tour-card-top{font-size:14px}
+.companion-invitation h2,.tour-card-copy h2{font-size:22px;font-weight:700;letter-spacing:normal;line-height:1.35}
+.companion-invitation p,.tour-card-copy p{font-size:16px;line-height:1.65}
+.tour-primary{font-size:15px;min-height:44px}
+.invitation-later,.invitation-shortcuts,.tour-ask{font-size:14px}
+.record-popover-heading,.record-status,.record-spotify-link{font-size:14px;line-height:1.6}
+@media(max-width:1100px){.experience-identity h3{font-size:20px}}
+@media(max-width:760px){
+  .hero-biography{font-size:18px}
+  .experience-identity h3{font-size:22px}
+  .experience-summary{font-size:17px}
+  .footer-information{column-gap:20px}
+  .footer-information-block,.footer-note p{font-size:16px}
+  .chat-message{font-size:17px}
+  .chat-form input{font-size:17px}
+  .companion-tour-card{padding-inline:18px}
+  .tour-card-actions{flex-wrap:wrap;gap:8px}
+  .chat-suggestions button{padding:8px 10px}
+}
