@@ -272,15 +272,19 @@ body{font-size:18px;line-height:1.65}
 /* Painted postcards stay within the footer, from its top divider to the signature. */
 .footer-playground{position:relative;border-top:1px solid var(--line);isolation:isolate}
 .footer-playground .footer-information{border-top:0}
-.footer-art-space{height:152px;position:relative}
+.footer-art-space{height:110px;position:relative}
 .footer-art-space>span{position:absolute;right:0;bottom:0;color:var(--soft);font-size:12px;line-height:1.5}
 .footer-playground .footer-signature{padding-top:24px}
+.footer-playground .signature-caption{margin-top:120px}
 .footer-postcards{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:2}
-.footer-postcard{position:absolute;left:0;top:0;width:136px;height:91px;padding:0;border-radius:4px;pointer-events:auto;touch-action:none;user-select:none;-webkit-user-select:none;cursor:grab;opacity:0;transform:rotate(var(--postcard-rotation));outline-offset:4px}
+.footer-postcard{position:absolute;left:0;top:0;width:136px;height:91px;padding:0;border-radius:4px;pointer-events:auto;touch-action:none;user-select:none;-webkit-user-select:none;cursor:grab;opacity:0;outline-offset:4px;--postcard-tilt:0deg}
 .footer-playground[data-ready=true] .footer-postcard{opacity:1}
-.footer-postcard img{display:block;width:100%;height:100%;object-fit:contain;background:#141411;border:1px solid #55554a;border-radius:4px;box-shadow:0 5px 14px #0004;pointer-events:none}
+.footer-postcard-art{display:block;position:relative;width:100%;height:100%;border:1px solid #55554a;border-radius:4px;background:#141411;box-shadow:0 5px 14px #0004;transform:rotate(calc(var(--postcard-rotation) + var(--postcard-tilt))) scale(1);transition:transform 220ms cubic-bezier(.22,1,.36,1),box-shadow 220ms ease-out;pointer-events:none}
+.footer-postcard img{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:contain;background:#141411;border-radius:3px;pointer-events:none;opacity:0;transition:opacity 550ms ease-in-out}
+.footer-postcard img[data-active=true]{opacity:1}
 .footer-postcard[data-dragging=true]{cursor:grabbing;will-change:transform}
-.footer-postcard[data-dragging=true] img{box-shadow:0 9px 24px #0006}
+.footer-postcard[data-dragging=true] .footer-postcard-art{transform:rotate(calc(var(--postcard-rotation) + var(--postcard-tilt))) scale(1.045);transition:transform 100ms ease-out,box-shadow 150ms ease-out;box-shadow:0 12px 25px #0008}
 .footer-postcard:focus-visible{outline:2px solid #f7f6f0}
 .footer-playground .footer-information:has(.record-popover:not([hidden])){position:relative;z-index:3}
-@media(max-width:760px){.footer-postcard{width:92px;height:62px}.footer-art-space{height:190px}.footer-playground .footer-signature{padding-top:18px}.footer-art-space>span{font-size:11px}}
+@media(max-width:760px){.footer-postcard{width:92px;height:62px}.footer-art-space{height:92px}.footer-playground .footer-signature{padding-top:18px}.footer-playground .signature-caption{margin-top:96px}.footer-art-space>span{font-size:11px}}
+@media(prefers-reduced-motion:reduce){.footer-postcard-art,.footer-postcard img{transition:none}.footer-postcard[data-dragging=true] .footer-postcard-art{transform:rotate(var(--postcard-rotation));transition:none}}

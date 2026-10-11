@@ -1,13 +1,13 @@
 'use client';
 
-import { useId, useLayoutEffect, useRef, type CSSProperties, type KeyboardEvent, type PointerEvent, type ReactNode } from 'react';
+import { useEffect, useId, useLayoutEffect, useRef, useState, type CSSProperties, type KeyboardEvent, type PointerEvent, type ReactNode } from 'react';
 import artworks from '@/content/entrance-art.json';
 import { constrainPostcard } from '@/lib/footer-postcards';
 
 const rotations = [-8, 6, -5, 8];
 type Point = { x: number; y: number };
 type Placement = Point & { moved: boolean };
-type Drag = { index: number; pointer: number; origin: Point; start: Point; next: Point; moved: boolean };
+type Drag = { index: number; pointer: number; origin: Point; start: Point; next: Point; moved: boolean; last: Point; time: number; tilt: number };
 
 export function FooterPostcards({ children }: { children: ReactNode }) {
   const frame = useRef<HTMLDivElement>(null);
@@ -16,23 +16,37 @@ export function FooterPostcards({ children }: { children: ReactNode }) {
   const drag = useRef<Drag | null>(null);
   const animationFrame = useRef<number | null>(null);
   const topLayer = useRef(0);
+  const [images, setImages] = useState(() => artworks.map((_, index) => index));
   const instructions = useId();
 
   function initial(index: number): Point {
     const board = frame.current!;
     const slot = board.querySelector<HTMLElement>('.footer-art-space')!;
-    const top = slot.getBoundingClientRect().top - board.getBoundingClientRect().top;
-    if (board.clientWidth < 600) return { x: board.clientWidth * (index % 2 ? .74 : .26), y: top + (index < 2 ? 45 : 128) };
-    return { x: board.clientWidth * [.12, .37, .63, .88][index], y: top + [52, 74, 54, 72][index] };
+    function layoutTop(element: HTMLElement) {
+      let top = 0;
+      let current: HTMLElement | null = element;
+      while (current && current !== board) {
+        top += current.offsetTop;
+        current = current.offsetParent as HTMLElement | null;
+      }
+      return top;
+    }
+    const top = layoutTop(slot);
+    const name = board.querySelector<HTMLElement>('.footer-wordmark')!;
+    const bottom = layoutTop(name) + name.offsetHeight;
+    const compact = board.clientWidth < 600;
+    const fractions = compact ? [.2, .8, .26, .74] : [.14, .85, .32, .73];
+    return { x: board.clientWidth * fractions[index], y: index < 2 ? top + (compact ? 42 : 54) : bottom + (compact ? 44 : 56) };
   }
 
   function place(index: number, point: Point, moved: boolean) {
     const board = frame.current;
     const card = cards.current[index];
     if (!board || !card || !board.clientWidth || !board.clientHeight) return;
-    const next = constrainPostcard(point, { width: board.clientWidth, height: board.clientHeight }, { width: card.offsetWidth, height: card.offsetHeight }, rotations[index]);
+    // Reserve the full lifted/tilted footprint, including every intermediate animation frame.
+    const next = constrainPostcard(point, { width: board.clientWidth, height: board.clientHeight }, { width: card.offsetWidth * 1.045, height: card.offsetHeight * 1.045 }, Math.abs(rotations[index]) + 6);
     placements.current[index] = { x: next.x / board.clientWidth, y: next.y / board.clientHeight, moved };
-    card.style.transform = `translate3d(${next.x - card.offsetWidth / 2}px, ${next.y - card.offsetHeight / 2}px, 0) rotate(${rotations[index]}deg)`;
+    card.style.transform = `translate3d(${next.x - card.offsetWidth / 2}px, ${next.y - card.offsetHeight / 2}px, 0)`;
   }
 
   useLayoutEffect(() => {
@@ -49,11 +63,38 @@ export function FooterPostcards({ children }: { children: ReactNode }) {
     observer.observe(board);
     const information = board.querySelector('.footer-information');
     if (information) observer.observe(information);
+    const name = board.querySelector('.footer-wordmark');
+    if (name) observer.observe(name);
     fit();
     return () => {
       observer.disconnect();
       if (animationFrame.current !== null) cancelAnimationFrame(animationFrame.current);
     };
+  }, []);
+
+  useEffect(() => {
+    const board = frame.current;
+    if (!board) return;
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const timers: number[] = [];
+    let visible = false;
+    function stop() { timers.splice(0).forEach(timer => window.clearTimeout(timer)); }
+    function schedule(index: number, delay: number) {
+      timers[index] = window.setTimeout(() => {
+        // Keep the artwork steady in the user's hand; resume its cycle after release.
+        if (drag.current?.index !== index) setImages(previous => previous.map((image, slot) => slot === index ? (image + 1) % artworks.length : image));
+        schedule(index, 4800);
+      }, delay);
+    }
+    function sync() {
+      stop();
+      if (visible && !document.hidden && !reduced.matches) artworks.forEach((_, index) => schedule(index, 4800 + index * 900));
+    }
+    const observer = new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; sync(); });
+    observer.observe(board);
+    document.addEventListener('visibilitychange', sync);
+    reduced.addEventListener('change', sync);
+    return () => { stop(); observer.disconnect(); document.removeEventListener('visibilitychange', sync); reduced.removeEventListener('change', sync); };
   }, []);
 
   function begin(event: PointerEvent<HTMLButtonElement>, index: number) {
@@ -67,18 +108,26 @@ export function FooterPostcards({ children }: { children: ReactNode }) {
     event.currentTarget.style.zIndex = String(++topLayer.current);
     event.currentTarget.dataset.dragging = 'true';
     const origin = { x: position.x * board.clientWidth, y: position.y * board.clientHeight };
-    drag.current = { index, pointer: event.pointerId, origin, start: { x: event.pageX, y: event.pageY }, next: origin, moved: position.moved };
+    const start = { x: event.pageX, y: event.pageY };
+    drag.current = { index, pointer: event.pointerId, origin, start, next: origin, moved: position.moved, last: start, time: event.timeStamp, tilt: 0 };
   }
 
   function move(event: PointerEvent<HTMLButtonElement>) {
     const current = drag.current;
     if (!current || current.pointer !== event.pointerId) return;
     current.next = { x: current.origin.x + event.pageX - current.start.x, y: current.origin.y + event.pageY - current.start.y };
+    const elapsed = Math.max(8, event.timeStamp - current.time);
+    current.tilt = Math.max(-6, Math.min(6, (event.pageX - current.last.x) / elapsed * 3));
+    current.last = { x: event.pageX, y: event.pageY };
+    current.time = event.timeStamp;
     if (event.pageX !== current.start.x || event.pageY !== current.start.y) current.moved = true;
     if (animationFrame.current !== null) return;
     animationFrame.current = requestAnimationFrame(() => {
       animationFrame.current = null;
-      if (drag.current) place(drag.current.index, drag.current.next, drag.current.moved);
+      if (drag.current) {
+        place(drag.current.index, drag.current.next, drag.current.moved);
+        cards.current[drag.current.index]?.style.setProperty('--postcard-tilt', `${drag.current.tilt}deg`);
+      }
     });
   }
 
@@ -90,6 +139,7 @@ export function FooterPostcards({ children }: { children: ReactNode }) {
     place(current.index, current.next, current.moved);
     drag.current = null;
     event.currentTarget.dataset.dragging = 'false';
+    event.currentTarget.style.setProperty('--postcard-tilt', '0deg');
     if (event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId);
   }
 
@@ -111,8 +161,10 @@ export function FooterPostcards({ children }: { children: ReactNode }) {
     {children}
     <span id={instructions} className="sr-only">Drag to rearrange within the footer. You can also use the arrow keys; hold Shift for larger moves. Press Home to reset this image.</span>
     <div className="footer-postcards">
-      {artworks.map((art, index) => <button key={art.key} ref={element => { cards.current[index] = element; }} className="footer-postcard" style={{ '--postcard-rotation': `${rotations[index]}deg` } as CSSProperties} aria-label={`Move ${art.title} postcard`} aria-describedby={instructions} data-lenis-prevent onPointerDown={event => begin(event, index)} onPointerMove={move} onPointerUp={end} onPointerCancel={end} onLostPointerCapture={end} onKeyDown={event => keyboard(event, index)}>
-        <img src={art.src} width={art.width} height={art.height} alt="" loading="lazy" decoding="async" fetchPriority="low" draggable={false} />
+      {artworks.map((art, index) => <button key={art.key} ref={element => { cards.current[index] = element; }} className="footer-postcard" style={{ '--postcard-rotation': `${rotations[index]}deg` } as CSSProperties} aria-label={`Move ${artworks[images[index]].title} postcard`} aria-describedby={instructions} data-lenis-prevent onPointerDown={event => begin(event, index)} onPointerMove={move} onPointerUp={end} onPointerCancel={end} onLostPointerCapture={end} onKeyDown={event => keyboard(event, index)}>
+        <span className="footer-postcard-art" aria-hidden="true">
+          {artworks.map((image, imageIndex) => <img key={image.key} src={image.src} width={image.width} height={image.height} alt="" data-active={images[index] === imageIndex} loading="lazy" decoding="async" fetchPriority="low" draggable={false} />)}
+        </span>
       </button>)}
     </div>
   </div>;
