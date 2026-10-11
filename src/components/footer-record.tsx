@@ -1,5 +1,6 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
+import Image from 'next/image';
 import { Play, Pause, X, ArrowUpRight } from '@phosphor-icons/react';
 import { loadSpotifyEmbed, type SpotifyController } from '@/lib/spotify-embed';
 import { favouriteSong } from '@/content/footer-widgets';
@@ -86,9 +87,8 @@ export function FooterRecord() {
 
   return <div className="footer-record" data-playing={playing}>
     <button ref={record} className="record-toggle" onClick={toggle} aria-label={`${playing ? 'Pause' : 'Play'} ${favouriteSong.title} by ${favouriteSong.artist}`} title={`${favouriteSong.title} · ${favouriteSong.artist}`} aria-pressed={playing} aria-expanded={open} aria-controls="footer-soundtrack">
-      <span className="vinyl-disc" aria-hidden="true"><span className="vinyl-label"><i /></span></span>
-      <span className="record-control" aria-hidden="true">{playing ? <Pause weight="fill" size={11} /> : <Play weight="fill" size={11} />}</span>
-      <svg className="record-arm" viewBox="0 0 64 64" aria-hidden="true"><circle cx="57" cy="8" r="3" /><path d="M57 8 48 31 42 34" /><path className="record-stylus" d="m41 30 4 2-3 7-4-2z" /></svg>
+      <Image className="song-cover" src={favouriteSong.cover} width={300} height={300} sizes="104px" alt="" draggable={false} />
+      <span className="record-control" aria-hidden="true">{playing ? <Pause weight="fill" size={17} /> : <Play weight="fill" size={17} />}</span>
     </button>
     {engaged && <div id="footer-soundtrack" className="record-popover" hidden={!open} role="region" aria-label="Footer soundtrack" data-lenis-prevent>
       <div className="record-popover-heading"><span>On repeat</span><button onClick={stop} aria-label="Close soundtrack and pause"><X size={15} /></button></div>

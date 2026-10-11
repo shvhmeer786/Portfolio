@@ -116,19 +116,11 @@
 @media(prefers-reduced-motion:reduce){.experience-glass-light{display:none}}
 @media(forced-colors:active){.experience-hover-glass{background:Canvas;border:1px solid Highlight;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none}.experience-hover-glass:before,.experience-hover-glass:after,.experience-glass-light{display:none}}
 
-/* A pocket-sized turntable, with Spotify's player available on demand. */
-.footer-record{position:relative;width:84px;margin-top:0;z-index:3}
-.record-toggle{position:relative;display:block;width:84px;height:84px;border-radius:50%}
-.vinyl-disc{position:absolute;left:1px;top:9px;width:72px;height:72px;border:1px solid #0b0b0b;border-radius:50%;background:repeating-radial-gradient(circle at center,#191919 0 1px,#2b2b2b 1px 1.7px,#191919 1.7px 2.8px);box-shadow:0 2px 5px #1717171c;animation:vinyl-turn 4s linear infinite;animation-play-state:paused;display:grid;place-items:center}
-.vinyl-disc:after{content:'';position:absolute;inset:5px;border:1px solid #ffffff16;border-radius:50%}
-.vinyl-label{width:25px;height:25px;border:1px solid #bb9b76;border-radius:50%;background:#a98561;position:relative;display:grid;place-items:center}
-.vinyl-label:before{content:'';position:absolute;left:3px;top:5px;width:7px;height:1px;background:#e5d4bf;box-shadow:0 3px 0 #e5d4bf;transform:rotate(-25deg)}
-.vinyl-label i{width:3px;height:3px;border-radius:50%;background:#171717;border:1px solid #f6eadb;z-index:1}
-.record-control{position:absolute;right:0;bottom:0;width:26px;height:26px;border-radius:50%;border:1px solid #c8c8c0;background:var(--paper);display:grid;place-items:center;box-shadow:0 1px 4px #1717170c;transition:background 160ms,color 160ms}
-.record-arm{position:absolute;inset:0;width:84px;height:84px;pointer-events:none;fill:#adada6;stroke:#9b9b92;stroke-width:1}
-.record-arm path{fill:none;stroke:#adada6;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
-.record-arm .record-stylus{fill:#d9d9d2;stroke:#96968d;stroke-width:.7}
-.footer-record[data-playing=true] .vinyl-disc{animation-play-state:running}
+/* Spotify cover artwork, with the player available on demand. */
+.footer-record{position:relative;width:104px;margin-top:0;z-index:3}
+.record-toggle{position:relative;display:block;width:104px;height:104px;border-radius:10px;background:#141411}
+.song-cover{display:block;width:100%;height:100%;object-fit:cover;border:1px solid #ffffff26;border-radius:10px;pointer-events:none}
+.record-control{position:absolute;right:6px;bottom:6px;width:36px;height:36px;border-radius:50%;border:1px solid #ffffff70;background:#141411e6;color:#f7f6f0;display:grid;place-items:center;transition:background 160ms,color 160ms}
 .record-popover{position:absolute;right:0;top:77px;width:320px;max-width:calc(100vw - 44px);padding:13px;border:1px solid #d9d9d2;border-radius:12px;background:var(--paper);box-shadow:0 7px 24px #1717170d}
 .record-popover[hidden]{display:none}
 .record-popover-heading{display:flex;align-items:center;justify-content:space-between;margin-bottom:9px;color:var(--soft);font-size:11px}
@@ -137,10 +129,8 @@
 .spotify-embed-host iframe{display:block;border:0;border-radius:8px;width:100%;height:80px}
 .record-status{font-size:11px;line-height:1.5;margin-bottom:9px}
 .record-spotify-link{display:flex;align-items:center;gap:4px;width:fit-content;font-size:10px;color:var(--muted);margin-top:10px;padding:3px 0;text-decoration:underline;text-underline-offset:3px}
-@keyframes vinyl-turn{to{transform:rotate(360deg)}}
 @media(hover:hover){.record-toggle:hover .record-control{background:var(--ink);color:var(--paper)}.record-popover-heading button:hover{background:var(--surface)}}
 @media(max-width:760px){.footer-record{grid-row:2;grid-column:2;justify-self:end;align-self:end}.footer-note{padding-right:106px}.record-popover{width:300px}}
-@media(prefers-reduced-motion:reduce){.vinyl-disc{animation:none}}
 /* Opening the player gives it its own shelf below the footer details. */
 .footer-information{position:relative;transition:margin-bottom 240ms var(--ease)}
 .footer-record{position:static}
@@ -235,7 +225,6 @@ body{font-size:18px;line-height:1.65}
 .dark-section .footer-navigation a{text-decoration-color:#858579}
 .dark-section .record-popover{border-color:var(--line);box-shadow:0 7px 24px #0003}
 .dark-section .record-control{border-color:#77776c}
-.dark-section .vinyl-disc{border-color:#77776c}
 .bot-face{box-shadow:0 5px 14px #17171718}
 .bot-launcher:focus-visible{outline:none}
 .bot-launcher:focus-visible .bot-face{box-shadow:inset 0 0 0 2px #fafaf9,0 5px 14px #17171718}
@@ -348,4 +337,4 @@ body{font-size:18px;line-height:1.65}
 @media(hover:hover){.widget-heading>a:hover,.widget-stack-arrows button:hover,.widget-stack-dots button:hover{background:#3d4234}}
 @media(max-width:1000px){.footer-information.footer-with-widgets{grid-template-columns:minmax(280px,340px) minmax(0,1fr);gap:32px}.footer-with-widgets .footer-navigation{grid-column:2;grid-row:1;align-self:end;justify-self:start;margin-top:160px}}
 @media(max-width:760px){.footer-information.footer-with-widgets{grid-template-columns:minmax(0,1fr);gap:28px}.footer-widget-stack{max-width:380px;justify-self:center}.footer-with-widgets .footer-note{grid-row:auto;grid-column:auto;padding-right:0}.footer-with-widgets .footer-navigation{grid-column:auto;grid-row:auto;margin-top:0;justify-self:start}.widget-panel{padding:18px}.widget-clock-note,.widget-song-note{left:18px;right:18px}.widget-clock-content time{font-size:23px}.widget-song-content{gap:10px}.widget-song-content h3{font-size:22px}}
-@media(max-width:360px){.github-widget-bottom{font-size:8px}.github-widget-legend i{width:6px;height:6px}.widget-swipe-hint{font-size:10px}.widget-song .record-toggle{width:67px;height:67px}.widget-clock-content time{font-size:21px}}
+@media(max-width:360px){.github-widget-bottom{font-size:8px}.github-widget-legend i{width:6px;height:6px}.widget-swipe-hint{font-size:10px}.widget-song .footer-record{width:84px}.widget-song .record-toggle{width:84px;height:84px}.widget-clock-content time{font-size:21px}}

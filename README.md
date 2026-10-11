@@ -58,7 +58,7 @@ This is a standard Next.js project, deployed to https://shahmeerali.com/ through
 
 The hero includes LinkedIn, GitHub, email, and X links. The header alternates between English and Arabic every three seconds, pausing when the tab is hidden and respecting reduced motion. Experience rows share a moving outline that also follows keyboard focus.
 
-The footer record plays “Intimidated (feat. H.E.R.)” by KAYTRANADA using Spotify's official iFrame API, without a client secret or API key. The player loads on request, and the record spins only when Spotify reports active playback. Playback availability is controlled by Spotify and the visitor’s session. Visitors can also open the track on Spotify. The Spotify player stays visible while playing, and closing it pauses playback.
+The footer song widget shows Spotify’s official cover artwork for “Intimidated (feat. H.E.R.)” by KAYTRANADA, with a play/pause button. The small cover is lazy-loaded through Next’s image cache; the track and artwork are configured in `src/content/footer-widgets.ts`. Playback uses Spotify's official iFrame API, without a client secret or API key, and the player loads only on request. Playback availability is controlled by Spotify and the visitor’s session. Visitors can also open the track on Spotify. The Spotify player stays visible while playing, and closing it pauses playback.
 
 ## Opening artwork
 
