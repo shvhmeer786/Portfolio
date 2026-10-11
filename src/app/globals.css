@@ -236,30 +236,21 @@ body{font-size:18px;line-height:1.65}
 .entrance-curtain-top{top:0;animation:entrance-open-top 550ms cubic-bezier(.77,0,.175,1) 1700ms both}
 .entrance-curtain-bottom{bottom:0;animation:entrance-open-bottom 550ms cubic-bezier(.77,0,.175,1) 1700ms both}
 .entrance-art-stage{position:absolute;left:50%;top:46%;width:min(420px,76vw);aspect-ratio:3/2;transform:translate(-50%,-50%)}
-.entrance-sequence,.entrance-gather{position:absolute;inset:0}
-.entrance-frame{position:absolute;inset:0;opacity:0;animation:entrance-postcard 400ms cubic-bezier(.22,1,.36,1) calc(var(--frame) * 280ms) both}
-.entrance-frame img,.entrance-miniature img{display:block;width:100%;height:100%;object-fit:contain;background:#141411;border-radius:5px}
-.entrance-frame img{box-shadow:0 12px 50px #0004}
-.entrance-frame figcaption{display:flex;justify-content:space-between;margin-top:17px;gap:20px;color:#d0cfc5;font-size:15px;line-height:1.5}
-.entrance-miniature{position:absolute;width:40%;aspect-ratio:3/2;left:30%;top:30%;opacity:0;animation:entrance-gather 700ms cubic-bezier(.22,1,.36,1) 1150ms both}
-.entrance-miniature img{border:1px solid #646459;box-shadow:0 10px 35px #0004}
+.entrance-gather{position:absolute;inset:0}
+.entrance-miniature{position:absolute;width:40%;aspect-ratio:1;left:30%;top:20%;opacity:0;animation:entrance-gather 1850ms cubic-bezier(.22,1,.36,1) both}
+.entrance-miniature img{display:block;width:100%;height:100%;object-fit:cover;background:#141411;border-radius:5px;border:1px solid #646459;box-shadow:0 10px 35px #0004}
 .entrance-monogram{position:absolute;inset:0;display:grid;place-items:center;font-size:86px;line-height:1;opacity:0;animation:entrance-signature 480ms cubic-bezier(.22,1,.36,1) 1660ms both}
 .entrance-identity{position:absolute;bottom:max(35px,env(safe-area-inset-bottom));left:max(44px,env(safe-area-inset-left));display:flex;flex-direction:column;gap:4px;animation:entrance-label-exit 300ms ease 1700ms both}
 .entrance-identity>span:first-child{font-size:23px}
 .entrance-identity>span:last-child{font-size:15px;color:#b8b7ac}
 .entrance-skip{position:absolute;right:max(44px,env(safe-area-inset-right));top:max(30px,env(safe-area-inset-top));display:flex;align-items:center;gap:9px;min-height:44px;padding:8px 4px;font-size:16px;color:#d0cfc5}
 .entrance-skip:focus-visible{outline-color:#f7f6f0}
-.portfolio-entrance :is(.entrance-curtain,.entrance-frame,.entrance-miniature,.entrance-monogram,.entrance-identity){animation-play-state:paused}
-.portfolio-entrance[data-running=true] :is(.entrance-curtain,.entrance-frame,.entrance-miniature,.entrance-monogram,.entrance-identity){animation-play-state:running}
-.portfolio-entrance[data-running=false] .entrance-frame:first-child{animation:none;opacity:1}
-@keyframes entrance-postcard{
-  0%{opacity:0;transform:translateY(22px) rotate(-4deg) scale(.94)}
-  15%,72%{opacity:1;transform:translateY(0) rotate(0) scale(1)}
-  100%{opacity:0;transform:translateY(-24px) rotate(3deg) scale(.97)}
-}
+.portfolio-entrance :is(.entrance-curtain,.entrance-miniature,.entrance-monogram,.entrance-identity){animation-play-state:paused}
+.portfolio-entrance[data-running=true] :is(.entrance-curtain,.entrance-miniature,.entrance-monogram,.entrance-identity){animation-play-state:running}
 @keyframes entrance-gather{
-  0%{opacity:0;transform:translate(0,20%) scale(.8)}
-  35%,64%{opacity:1;transform:translate(var(--fan-x),var(--fan-y)) rotate(var(--fan-rotation)) scale(1)}
+  0%{opacity:0;transform:translate(var(--grid-x),var(--grid-y)) rotate(0) scale(.96)}
+  18%,62%{opacity:1;transform:translate(var(--grid-x),var(--grid-y)) rotate(0) scale(1)}
+  75%,86%{opacity:1;transform:translate(var(--fan-x),var(--fan-y)) rotate(var(--fan-rotation)) scale(1)}
   100%{opacity:0;transform:translate(0,0) rotate(0) scale(.65)}
 }
 @keyframes entrance-signature{0%{opacity:0;transform:translateY(10px) scale(.95)}35%,65%{opacity:1;transform:none}100%{opacity:0;transform:translateY(-10px)}}

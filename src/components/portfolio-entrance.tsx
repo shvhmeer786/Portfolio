@@ -4,12 +4,12 @@ import { ArrowUpRight } from '@phosphor-icons/react';
 import artworks from '@/content/entrance-art.json';
 
 const duration = 2250;
-const artworkSizes = '(max-width: 760px) min(360px, 76vw), 420px';
+const artworkSizes = '(max-width: 760px) min(144px, 30.4vw), 168px';
 const fan = [
-  { x: '-85%', y: '8%', rotation: '-12deg' },
-  { x: '-28%', y: '-12%', rotation: '-4deg' },
-  { x: '28%', y: '-12%', rotation: '4deg' },
-  { x: '85%', y: '8%', rotation: '12deg' },
+  { x: '-85%', y: '8%', rotation: '-12deg', gridX: '-52%', gridY: '-52%' },
+  { x: '-28%', y: '-12%', rotation: '-4deg', gridX: '52%', gridY: '-52%' },
+  { x: '28%', y: '-12%', rotation: '4deg', gridX: '-52%', gridY: '52%' },
+  { x: '85%', y: '8%', rotation: '12deg', gridX: '52%', gridY: '52%' },
 ];
 
 export function PortfolioEntrance({ onComplete, reduced }: { onComplete: () => void; reduced: boolean }) {
@@ -63,12 +63,8 @@ export function PortfolioEntrance({ onComplete, reduced }: { onComplete: () => v
     <div className="entrance-curtain entrance-curtain-top" aria-hidden="true" />
     <div className="entrance-curtain entrance-curtain-bottom" aria-hidden="true" />
     <div className="entrance-art-stage" aria-hidden="true">
-      <div className="entrance-sequence">{artworks.map((art, index) => <figure className="entrance-frame" key={art.key} style={{ '--frame': index } as CSSProperties}>
+      <div className="entrance-gather">{artworks.map((art, index) => <div className="entrance-miniature" key={art.key} style={{ '--fan-x': fan[index].x, '--fan-y': fan[index].y, '--fan-rotation': fan[index].rotation, '--grid-x': fan[index].gridX, '--grid-y': fan[index].gridY } as CSSProperties}>
         <img src={art.src} srcSet={art.srcSet} sizes={artworkSizes} width={art.width} height={art.height} alt="" loading="eager" decoding="async" fetchPriority="low" onLoad={() => ready(index)} onError={finish} />
-        <figcaption><span>{art.title}</span><span>{String(index + 1).padStart(2, '0')} / 04</span></figcaption>
-      </figure>)}</div>
-      <div className="entrance-gather">{artworks.map((art, index) => <div className="entrance-miniature" key={art.key} style={{ '--fan-x': fan[index].x, '--fan-y': fan[index].y, '--fan-rotation': fan[index].rotation } as CSSProperties}>
-        <img src={art.src} srcSet={art.srcSet} sizes={artworkSizes} width={art.width} height={art.height} alt="" loading="eager" decoding="async" fetchPriority="low" />
       </div>)}</div>
       <span className="entrance-monogram">SA</span>
     </div>
