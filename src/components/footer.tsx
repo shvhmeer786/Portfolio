@@ -5,10 +5,11 @@ import { Reveal } from './reveal';
 import { FooterWidgetStack } from './footer-widget-stack';
 import { FooterWordmark } from './footer-wordmark';
 import { FooterPostcards } from './footer-postcards';
+import { FooterGreeting } from './footer-greeting';
 
 export function Footer() {
   return <footer className="site-footer dark-section" id="contact"><div className="shell">
-    <div className="contact-inner"><h2>Say hello.</h2><a className="contact-email" href={`mailto:${profile.email}`}>{profile.email}<ArrowUpRight size={21} /></a></div>
+    <div className="contact-inner"><FooterGreeting /><a className="contact-email" href={`mailto:${profile.email}`}>{profile.email}<ArrowUpRight size={21} /></a></div>
     <FooterPostcards><Reveal className="footer-information footer-with-widgets">
       <FooterWidgetStack />
       <div className="footer-information-block footer-note"><h3>A small note</h3><p>Based in {profile.location}.</p><p>A space for research, ideas, and the person behind them.</p></div>
