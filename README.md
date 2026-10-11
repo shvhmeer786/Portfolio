@@ -66,4 +66,4 @@ The built-in image-generation tool transformed the four supplied sources into ma
 
 ## Typography
 
-Michelangelus is the site-wide family, using the regular, bold, italic, and bold italic files supplied in the Microsoft font download. Next.js serves only the styles a page uses from cached local assets, with a metric-adjusted serif fallback during loading. Noto Naskh Arabic supplies Arabic glyphs that Michelangelus does not include. Font files and the accompanying license are in `src/fonts/michelangelus/`.
+The original font pairing is restored: Geist for body text, headings, and controls; Newsreader for the English name and signature. Locally bundled Latin subsets use swap loading, with regular, medium, and bold Geist weights to preserve the current readability improvements. Noto Naskh Arabic supplies the Arabic name. The previously supplied Michelangelus source files and license remain archived in `src/fonts/michelangelus/` but are no longer loaded by the website.
