@@ -3,7 +3,7 @@ import { useCallback, useEffect, useRef, useState, type CSSProperties } from 're
 import { ArrowUpRight } from '@phosphor-icons/react';
 import artworks from '@/content/entrance-art.json';
 
-const duration = 3200;
+const duration = 2250;
 const artworkSizes = '(max-width: 760px) min(360px, 76vw), 420px';
 const fan = [
   { x: '-85%', y: '8%', rotation: '-12deg' },
