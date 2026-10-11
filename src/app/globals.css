@@ -34,7 +34,8 @@
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation:none!important;transition:none!important}.gallery-photo{transform:none}.bot-face,.bot-drift,.bot-eyes{transform:none!important}}
 
 /* A typographic signature to close the portfolio. */
-.scroll-progress{position:fixed;top:0;left:0;width:100%;height:2px;background:#929a7d;transform:scaleX(0);transform-origin:left center;border-radius:0 1px 1px 0;pointer-events:none;z-index:50}
+.scroll-progress{position:fixed;top:0;left:0;width:100%;height:2px;background:var(--charcoal);transform:scaleX(0);transform-origin:left center;border-radius:0 1px 1px 0;pointer-events:none;z-index:50}
+.scroll-progress[data-surface=dark]{background:#fff}
 .footer-greeting-visual{display:inline-flex;align-items:baseline;white-space:nowrap}
 .footer-greeting-slot{display:inline-grid;margin-left:.24em;isolation:isolate}
 .footer-greeting-word{grid-area:1 / 1;justify-self:start;unicode-bidi:isolate;opacity:0;transform:translate3d(0,5px,0);transition:opacity 200ms ease,transform 200ms var(--ease);pointer-events:none}
