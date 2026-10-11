@@ -3,6 +3,7 @@ import { useCallback, useEffect, useState, useRef, type RefObject } from 'react'
 import { usePathname } from 'next/navigation';
 import { companionPosition, guideTargets, tourStops } from '@/lib/companion-guide';
 import { scrollToPortfolioTarget } from '@/lib/portfolio-scroll';
+import { shouldPlayEntrance } from '@/lib/portfolio-entrance';
 
 type Phase = 'boot' | 'intro' | 'settle' | 'offer' | 'idle' | 'tour' | 'visit';
 export function useCompanionGuide(ref: RefObject<HTMLElement | null>, reduced: boolean | null, paused: boolean) {
@@ -28,16 +29,13 @@ export function useCompanionGuide(ref: RefObject<HTMLElement | null>, reduced: b
     let welcomed = false;
     try { welcomed = sessionStorage.getItem('portfolio-companion-welcomed') === 'yes'; sessionStorage.setItem('portfolio-companion-welcomed', 'yes'); } catch { /* The entrance also works without storage. */ }
     const navigation = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming | undefined;
-    entryDecision.current = reduced ? 'offer' : !welcomed || navigation?.type === 'reload' ? 'intro' : 'idle';
+    entryDecision.current = reduced ? 'offer' : shouldPlayEntrance({ pathname, reduced, welcomed, navigationType: navigation?.type, hash: window.location.hash }) ? 'intro' : 'idle';
     setPhase(entryDecision.current);
   }, [pathname, phase, reduced]);
 
   useEffect(() => {
     if (phase === 'settle') { const timer = setTimeout(() => setPhase('offer'), reduced ? 0 : 800); return () => clearTimeout(timer); }
-    if (phase !== 'intro') return;
-    const timer = setTimeout(finishIntro, 2100);
-    return () => clearTimeout(timer);
-  }, [phase, finishIntro, reduced]);
+  }, [phase, reduced]);
 
   useEffect(() => {
     if (pathname !== '/') stop();
@@ -77,17 +75,7 @@ export function useCompanionGuide(ref: RefObject<HTMLElement | null>, reduced: b
   useEffect(() => {
     if (phase !== 'intro') return;
     if (!window.location.hash || window.location.hash === '#intro-heading') scrollToPortfolioTarget(document.documentElement, 0, true);
-    const center = () => {
-      const bot = ref.current;
-      if (!bot) return;
-      const style = getComputedStyle(bot);
-      const left = document.documentElement.clientWidth - Number.parseFloat(style.right) - bot.offsetWidth;
-      const top = window.innerHeight - Number.parseFloat(style.bottom) - bot.offsetHeight;
-      setPosition({ x: document.documentElement.clientWidth / 2 - left - bot.offsetWidth / 2, y: window.innerHeight / 2 - 55 - top - bot.offsetHeight / 2, scale: 1.7 });
-    };
-    center(); window.addEventListener('resize', center);
-    return () => window.removeEventListener('resize', center);
-  }, [phase, ref]);
+  }, [phase]);
 
   useEffect(() => {
     if (phase === 'idle' || phase === 'boot') return;

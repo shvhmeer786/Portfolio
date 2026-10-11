@@ -27,7 +27,7 @@ The companion currently uses local, factual portfolio responses in `src/lib/port
 
 - Gentle continuous floating, wandering, blinking, and pointer-following eyes.
 - Short companion greetings or thinking bubbles every 15–20 seconds.
-- The companion rests in the viewport’s bottom-right corner during normal scrolling. Its size is about 20% larger than the original. On a first visit in a browser session or a full refresh, a skippable 2.1-second hello appears, followed by an 800 ms glide to the corner and an optional tour invitation. Reduced-motion visitors get the invitation directly. Ordinary navigation does not replay the intro.
+- The companion rests in the viewport’s bottom-right corner during normal scrolling. A first entry or full refresh opens a skippable 3.2-second painted sequence: Orena, Seattle, Waterloo, then waves. The images gather into a signature before two charcoal curtains reveal the page. The companion stays in its corner and offers the optional tour afterward. Reduced-motion visitors, section links, and ordinary return navigation bypass the opening. Slow or failed artwork loads bypass it within one second; the page keeps loading underneath.
 - The optional four-stop tour introduces photographs, Orena, Microsoft, and contact. The bot moves alongside the highlighted section, with Back, Next, Ask about this, and End controls in a compact card. Manual scrolling ends the tour and restores the normal anchor.
 - Chat understands local navigation requests such as “Show me his Microsoft experience” and “Take me back to the photos.” “Take the tour” restarts the tour any time. These actions only navigate known sections of this portfolio.
 - Slideshow advances every three seconds when active, with previous/next, direct selection, pause, and touch swipe. It waits for the next photograph to load before advancing and pauses on mouse hover or keyboard focus.
@@ -43,7 +43,7 @@ npm test
 npm run build
 ```
 
-Seventeen tests cover factual companion responses, missing information, contact details, animation timing bounds, navigation intent, and guide positioning. The production build includes the home page, two sample project templates, a not-found page, and the chat route.
+Nineteen tests cover factual companion responses, missing information, contact details, animation timing bounds, navigation intent, guide positioning, and entrance replay/accessibility decisions. The production build includes the home page, two sample project templates, a not-found page, and the chat route.
 
 ## Next content session
 
@@ -54,11 +54,15 @@ Seventeen tests cover factual companion responses, missing information, contact 
 
 ## Vercel later
 
-This is a standard Next.js project. When ready, use this folder as the project root in Vercel and select its Next.js preset. No external AI credentials are required for the current companion. The website has not been deployed or connected to a domain.
+This is a standard Next.js project, deployed to https://shahmeerali.com/ through Vercel. No external AI credentials are required for the current companion.
 
 The hero includes LinkedIn, GitHub, email, and X links. The header alternates between English and Arabic every three seconds, pausing when the tab is hidden and respecting reduced motion. Experience rows share a moving outline that also follows keyboard focus.
 
 The footer record plays “Intimidated (feat. H.E.R.)” by KAYTRANADA using Spotify's official iFrame API, without a client secret or API key. The player loads on request, and the record spins only when Spotify reports active playback. Playback availability is controlled by Spotify and the visitor’s session. Visitors can also open the track on Spotify. The Spotify player stays visible while playing, and closing it pauses playback.
+
+## Opening artwork
+
+The built-in image-generation tool transformed the four supplied sources into matte, grainy painted artwork. Full-resolution results and the exact style-transfer prompts are saved in `artwork/entrance/`. Only pre-generated 480 px and 840 px WebP versions are served to visitors, from content-hashed URLs with immutable caching. Run `npm run optimize:entrance` after changing the source art. The opening uses CSS transforms and opacity, shares image requests between its sequential and gathered views, and downloads no video or animation library.
 
 ## Typography
 

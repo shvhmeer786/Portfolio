@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from 'motion/react';
 import { ArrowRight, ArrowLeft, X, HandWaving } from '@phosphor-icons/react';
 import { tourStops } from '@/lib/companion-guide';
 import type { useCompanionGuide } from './use-companion-guide';
+import { PortfolioEntrance } from './portfolio-entrance';
 
 type Guide = ReturnType<typeof useCompanionGuide>;
 export function CompanionGuideUI({ guide, reduced, ask }: { guide: Guide; reduced: boolean; ask: (question: string) => void }) {
@@ -12,11 +13,7 @@ export function CompanionGuideUI({ guide, reduced, ask }: { guide: Guide; reduce
     if (guide.active) next.current?.focus({ preventScroll: true });
   }, [guide.active]);
   return <>
-    <AnimatePresence>
-      {guide.phase === 'intro' && <motion.div className="companion-arrival" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: .5 }}>
-        <div className="arrival-copy" role="status"><p>Hi. Let’s look around.</p><span>Shahmeer’s portfolio companion</span><button onClick={guide.finishIntro}>Skip intro <ArrowRight size={13} /></button></div>
-      </motion.div>}
-    </AnimatePresence>
+    {guide.phase === 'intro' && <PortfolioEntrance onComplete={guide.finishIntro} reduced={reduced} />}
     <AnimatePresence>
       {guide.active && guide.target && <motion.section className="companion-tour-card" data-companion-controls data-lenis-prevent role="dialog" aria-modal="false" aria-labelledby="tour-title" initial={reduced ? false : { opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 10 }} transition={{ duration: reduced ? 0 : .25 }}>
         <div className="tour-card-top"><span>{guide.phase === 'tour' ? `A little look around · ${String(guide.step + 1).padStart(2, '0')} / ${String(tourStops.length).padStart(2, '0')}` : 'Right this way'}</span><button aria-label="End guided tour" onClick={guide.stop}><X size={17} /></button></div>

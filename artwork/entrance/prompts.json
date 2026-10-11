@@ -1,0 +1,29 @@
+{
+  "tool": "Built-in image generation",
+  "assets": [
+    {
+      "key": "orena",
+      "source": "Orena_Logo.png",
+      "artwork": "orena.png",
+      "prompt": "Use case: style-transfer. Edit target: image 1, Orena circular geometric logo. Image 2 is ONLY a texture/style reference, never reproduce its landscape, text or branding. Create a square standalone artwork for a personal portfolio opening. Preserve the exact centered Orena symbol: two concentric interrupted rings, exact negative spaces and horizontal split, proportions unchanged. Turn the pale symbol into chalky cream pigment with very fine stippled, fuzzy painterly edges and visible matte paper grain. Background deep warm charcoal #141411 with subtle dense pigment grain, no extra objects. Keep its original ample border. Feel like softly airbrushed gouache and textured risograph pigment, as tangible and grainy as the reference, not just a digital noise filter. No words, borders, shadow mockups or added symbols. Nontransparent background."
+    },
+    {
+      "key": "seattle",
+      "source": "stephen-plopper-UmEYn_GYqFo-unsplash.jpg",
+      "artwork": "seattle.png",
+      "prompt": "Use case: style-transfer. Edit target: image 1, Seattle skyline photograph. Image 2 is ONLY texture/style reference; do not copy its subject, text or branding. Create a landscape 3:2 standalone artwork. Preserve original composition, Seattle Space Needle on the left, mountain on the right, skyline and sunset. Transform every surface into a dreamy grainy gouache/airbrush painting with soft stippled fuzzy pigment edges, coarse matte paper texture, tiny tactile fibers and softly simplified buildings. As strongly textured and painterly as the reference, not simply photographic with noise. Muted teal and deep forest green shadows, powder blue sky, pale peach and warm cream sunset. Keep landmarks legible. No words, logos, borders or added subjects. Full bleed."
+    },
+    {
+      "key": "waterloo",
+      "source": "portfolio-waterloo-seal.png",
+      "artwork": "waterloo.png",
+      "prompt": "Use case: style-transfer. Edit target: image 1, University of Waterloo circular seal. Image 2 ONLY texture/style reference; never copy its landscape or text. Make a square standalone artwork preserving the complete circular seal, all three lions, shield, chevrons, concentric bands and exact lettering: UNIVERSITY OF WATERLOO and CONCORDIA CUM VERITATE. Preserve geometry and spacing precisely. Re-render in softly stippled matte gouache pigment with fuzzy painted edges and tactile fine paper fibers, like textured risograph art, not a vector. Muted ochre/gold shield, deep oxblood lions, charcoal rings, warm ivory lettering and center. Place full seal centered with 12 percent quiet margin on warm charcoal #141411. No extra text, symbols, border or mockup. Keep entire seal visible; no crop. Nontransparent background."
+    },
+    {
+      "key": "waves",
+      "source": "matt-paul-catalano-0QEG_xOoY7Y-unsplash.jpg",
+      "artwork": "waves.png",
+      "prompt": "Use case: style-transfer. Edit target: image 1 ocean wave photograph. Image 2 ONLY texture/style reference; do not copy its landscape, text or branding. Create landscape 3:2 standalone artwork preserving curl of the wave, position, direction and proportions. Transform into a dreamy grainy gouache/soft airbrush painting with dense fine stippled pigment, fuzzy tactile edges, soft tiny fibers and matte paper grain, as strongly painterly as the reference. Teal/forest blue curl with powder blue shadows and soft warm ivory/pale blush sea foam and sky. Simplify harsh photographic detail while preserving depth and wave shape. No text, logos, borders, other subjects or mockup. Full bleed."
+    }
+  ]
+}
