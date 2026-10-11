@@ -199,3 +199,32 @@ body{font-size:18px;line-height:1.65}
   .tour-card-actions{flex-wrap:wrap;gap:8px}
   .chat-suggestions button{padding:8px 10px}
 }
+
+/* Mixed light and dark sections, with the reading surface kept light. */
+:root{--paper:#f8f6f0;--charcoal:#141411}
+.dark-section{
+  --paper:var(--charcoal);
+  --ink:#f7f6f0;
+  --muted:#d0cfc5;
+  --soft:#b8b7ac;
+  --line:#42423a;
+  --surface:#262620;
+  background:var(--paper);
+  color:var(--ink);
+  color-scheme:dark;
+}
+.dark-section ::selection{background:#dbd8c8;color:#141411}
+.dark-section :is(button,a,input):focus-visible{outline-color:var(--ink)}
+.home-page{background:var(--charcoal)}
+.hero-band{background:var(--paper)}
+.experience-band{background:var(--paper);border-radius:0 0 24px 24px;position:relative}
+.dark-section .contact-email{border-color:#858579}
+.dark-section .footer-navigation a{text-decoration-color:#858579}
+.dark-section .record-popover{border-color:var(--line);box-shadow:0 7px 24px #0003}
+.dark-section .record-control{border-color:#77776c}
+.dark-section .vinyl-disc{border-color:#77776c}
+.bot-face{box-shadow:0 0 0 1px #b8b7ac,0 5px 14px #17171718}
+.bot-label{background:#fafaf9;color:#44443f;border:1px solid #dededb;border-radius:20px;padding:2px 9px}
+@media(max-width:760px){
+  .experience-band{border-radius:0 0 18px 18px}
+}

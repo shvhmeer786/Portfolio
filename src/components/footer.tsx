@@ -7,7 +7,7 @@ import { FooterRecord } from './footer-record';
 import { FooterWordmark } from './footer-wordmark';
 
 export function Footer() {
-  return <footer className="site-footer shell" id="contact">
+  return <footer className="site-footer dark-section" id="contact"><div className="shell">
     <div className="contact-inner"><h2>Say hello.</h2><a className="contact-email" href={`mailto:${profile.email}`}>{profile.email}<ArrowUpRight size={21} /></a></div>
     <Reveal className="footer-information">
       <div className="footer-information-block"><h3>Toronto time</h3><FooterClock /></div>
@@ -17,5 +17,5 @@ export function Footer() {
     </Reveal>
     <Reveal className="footer-signature"><FooterWordmark /><div className="signature-caption"><span>{profile.focus}</span></div></Reveal>
     <div className="footer-bottom"><span>© {new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Toronto', year: 'numeric' }).format(new Date())} Shahmeer Ali</span></div>
-  </footer>;
+  </div></footer>;
 }

@@ -7,12 +7,12 @@ import { SocialLinks } from '@/components/social-links';
 import { ExperienceHighlight } from '@/components/experience-highlight';
 
 export default function Home() {
-  return <main id="main" className="shell">
-    <section className="home-hero" aria-labelledby="intro-heading">
+  return <main id="main" className="home-page">
+    <div className="hero-band"><section className="home-hero shell" aria-labelledby="intro-heading">
       <Reveal className="hero-copy"><h1 id="intro-heading">{profile.introduction}</h1><p className="hero-biography">{profile.biography}</p><p className="hero-location">Based in {profile.location}.</p><div className="hero-links"><a className="text-link" href="#experience">View my experience <ArrowUpRight size={18} /></a><a className="text-link secondary-link" href={`mailto:${profile.email}`}>Say hello <ArrowUpRight size={18} /></a></div><SocialLinks /></Reveal>
       <Reveal delay={0.1}><PhotoGallery /></Reveal>
-    </section>
-    <section id="experience" className="experience-section section-gap" aria-labelledby="experience-heading"><Reveal><div className="section-heading"><h2 id="experience-heading">Experience</h2><p>Research, building, and learning along the way.</p></div></Reveal>
+    </section></div>
+    <div className="experience-band"><section id="experience" className="experience-section section-gap shell" aria-labelledby="experience-heading"><Reveal><div className="section-heading"><h2 id="experience-heading">Experience</h2><p>Research, building, and learning along the way.</p></div></Reveal>
       <ExperienceHighlight>
         {experiences.map((entry, i) => <Reveal key={entry.slug} delay={Math.min(i * 0.04, 0.16)}>
           <article className="experience-row" id={`experience-${entry.slug}`}>
@@ -31,6 +31,6 @@ export default function Home() {
           </article>
         </Reveal>)}
       </ExperienceHighlight>
-    </section>
+    </section></div>
   </main>;
 }
