@@ -59,3 +59,7 @@ This is a standard Next.js project. When ready, use this folder as the project r
 The hero includes LinkedIn, GitHub, email, and X links. The header alternates between English and Arabic every three seconds, pausing when the tab is hidden and respecting reduced motion. Experience rows share a moving outline that also follows keyboard focus.
 
 The footer record plays “Intimidated (feat. H.E.R.)” by KAYTRANADA using Spotify's official iFrame API, without a client secret or API key. The player loads on request, and the record spins only when Spotify reports active playback. Playback availability is controlled by Spotify and the visitor’s session. Visitors can also open the track on Spotify. The Spotify player stays visible while playing, and closing it pauses playback.
+
+## Typography
+
+Michelangelus is the site-wide family, using the regular, bold, italic, and bold italic files supplied in the Microsoft font download. Next.js serves only the styles a page uses from cached local assets, with a metric-adjusted serif fallback during loading. Noto Naskh Arabic supplies Arabic glyphs that Michelangelus does not include. Font files and the accompanying license are in `src/fonts/michelangelus/`.
