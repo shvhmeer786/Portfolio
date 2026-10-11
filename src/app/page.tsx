@@ -11,6 +11,7 @@ import { ExperienceHighlight } from '@/components/experience-highlight';
 export const metadata: Metadata = {
   alternates: { canonical: SITE_URL },
   robots: { index: true, follow: true },
+  verification: { google: 'aEdtf6tKZquR1SLvpDsKR7_OYNbMDiuf8X37UHvB4OU' },
 };
 
 export default function Home() {
