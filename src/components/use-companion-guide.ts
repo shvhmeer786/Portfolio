@@ -1,5 +1,5 @@
 'use client';
-import { useCallback, useEffect, useState, useRef, type RefObject } from 'react';
+import { useCallback, useEffect, useState, type RefObject } from 'react';
 import { usePathname } from 'next/navigation';
 import { companionPosition, guideTargets, tourStops } from '@/lib/companion-guide';
 import { scrollToPortfolioTarget } from '@/lib/portfolio-scroll';
@@ -12,7 +12,6 @@ export function useCompanionGuide(ref: RefObject<HTMLElement | null>, reduced: b
   const [visit, setVisit] = useState<string | null>(null);
   const [position, setPosition] = useState({ x: 0, y: 0, scale: 1 });
   const pathname = usePathname();
-  const entryDecision = useRef<Phase | null>(null);
   const active = phase === 'tour' || phase === 'visit';
   const targetId = phase === 'tour' ? tourStops[step] : visit;
   const stop = useCallback(() => { setPhase('idle'); setVisit(null); setPosition({ x: 0, y: 0, scale: 1 }); ref.current?.querySelector<HTMLButtonElement>('.bot-launcher')?.focus({ preventScroll: true }); }, [ref]);
@@ -23,15 +22,18 @@ export function useCompanionGuide(ref: RefObject<HTMLElement | null>, reduced: b
   }, []);
 
   useEffect(() => {
-    if (phase !== 'boot' || reduced === null) return;
-    if (pathname !== '/') { setPhase('idle'); return; }
-    if (entryDecision.current) { setPhase(entryDecision.current); return; }
-    let welcomed = false;
-    try { welcomed = sessionStorage.getItem('portfolio-companion-welcomed') === 'yes'; sessionStorage.setItem('portfolio-companion-welcomed', 'yes'); } catch { /* The entrance also works without storage. */ }
-    const navigation = performance.getEntriesByType('navigation')[0] as PerformanceNavigationTiming | undefined;
-    entryDecision.current = reduced ? 'offer' : shouldPlayEntrance({ pathname, reduced, welcomed, navigationType: navigation?.type, hash: window.location.hash }) ? 'intro' : 'idle';
-    setPhase(entryDecision.current);
-  }, [pathname, phase, reduced]);
+    if (reduced === null) return;
+    const enter = () => {
+      setVisit(null);
+      setPosition({ x: 0, y: 0, scale: 1 });
+      setPhase(pathname !== '/' ? 'idle' : reduced ? 'offer' : shouldPlayEntrance({ pathname, reduced, hash: window.location.hash }) ? 'intro' : 'idle');
+    };
+    enter();
+    // A restored browser-history page keeps React state instead of mounting again.
+    const restore = (event: PageTransitionEvent) => { if (event.persisted) enter(); };
+    window.addEventListener('pageshow', restore);
+    return () => window.removeEventListener('pageshow', restore);
+  }, [pathname, reduced]);
 
   useEffect(() => {
     if (phase === 'settle') { const timer = setTimeout(() => setPhase('offer'), reduced ? 0 : 800); return () => clearTimeout(timer); }

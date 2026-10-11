@@ -1,5 +1,5 @@
-export function shouldPlayEntrance({ pathname, reduced, welcomed, navigationType, hash }: {
-  pathname: string; reduced: boolean; welcomed: boolean; navigationType?: string; hash: string;
+export function shouldPlayEntrance({ pathname, reduced, hash }: {
+  pathname: string; reduced: boolean; hash: string;
 }) {
-  return pathname === '/' && !reduced && !hash && (!welcomed || navigationType === 'reload');
+  return pathname === '/' && !reduced && !hash;
 }
