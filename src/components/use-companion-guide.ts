@@ -5,7 +5,7 @@ import { companionPosition, guideTargets, tourStops } from '@/lib/companion-guid
 import { scrollToPortfolioTarget } from '@/lib/portfolio-scroll';
 import { shouldPlayEntrance } from '@/lib/portfolio-entrance';
 
-type Phase = 'boot' | 'intro' | 'settle' | 'offer' | 'idle' | 'tour' | 'visit';
+type Phase = 'boot' | 'intro' | 'idle' | 'tour' | 'visit';
 export function useCompanionGuide(ref: RefObject<HTMLElement | null>, reduced: boolean | null, paused: boolean) {
   const [phase, setPhase] = useState<Phase>('boot');
   const [step, setStep] = useState(0);
@@ -15,7 +15,7 @@ export function useCompanionGuide(ref: RefObject<HTMLElement | null>, reduced: b
   const active = phase === 'tour' || phase === 'visit';
   const targetId = phase === 'tour' ? tourStops[step] : visit;
   const stop = useCallback(() => { setPhase('idle'); setVisit(null); setPosition({ x: 0, y: 0, scale: 1 }); ref.current?.querySelector<HTMLButtonElement>('.bot-launcher')?.focus({ preventScroll: true }); }, [ref]);
-  const finishIntro = useCallback(() => { setPhase('settle'); setPosition({ x: 0, y: 0, scale: 1 }); }, []);
+  const finishIntro = useCallback(() => { setPhase('idle'); setPosition({ x: 0, y: 0, scale: 1 }); }, []);
   const start = useCallback(() => { setStep(0); setVisit(null); setPhase('tour'); }, []);
   const navigate = useCallback((target: string) => {
     if (guideTargets[target]) { setVisit(target); setPhase('visit'); }
@@ -26,7 +26,7 @@ export function useCompanionGuide(ref: RefObject<HTMLElement | null>, reduced: b
     const enter = () => {
       setVisit(null);
       setPosition({ x: 0, y: 0, scale: 1 });
-      setPhase(pathname !== '/' ? 'idle' : reduced ? 'offer' : shouldPlayEntrance({ pathname, reduced, hash: window.location.hash }) ? 'intro' : 'idle');
+      setPhase(shouldPlayEntrance({ pathname, reduced, hash: window.location.hash }) ? 'intro' : 'idle');
     };
     enter();
     // A restored browser-history page keeps React state instead of mounting again.
@@ -34,10 +34,6 @@ export function useCompanionGuide(ref: RefObject<HTMLElement | null>, reduced: b
     window.addEventListener('pageshow', restore);
     return () => window.removeEventListener('pageshow', restore);
   }, [pathname, reduced]);
-
-  useEffect(() => {
-    if (phase === 'settle') { const timer = setTimeout(() => setPhase('offer'), reduced ? 0 : 800); return () => clearTimeout(timer); }
-  }, [phase, reduced]);
 
   useEffect(() => {
     if (pathname !== '/') stop();

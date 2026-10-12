@@ -7,7 +7,7 @@ import { X, ArrowUpRight, PaperPlaneTilt, HandWaving, Pause, Play } from '@phosp
 import { botMoments } from '@/content/portfolio';
 import { getCompanionAction } from '@/lib/companion-guide';
 import { useCompanionGuide } from './use-companion-guide';
-import { CompanionGuideUI, TourInvitation } from './companion-guide-ui';
+import { CompanionGuideUI } from './companion-guide-ui';
 import { nextMomentDelay, type PortfolioAnswer } from '@/lib/portfolio-assistant';
 
 type Message = { id: number; role: 'user' | 'assistant'; text: string; sources?: PortfolioAnswer['sources'] };
@@ -117,9 +117,8 @@ export function PortfolioBot() {
     } finally { if (!controller.signal.aborted) setPending(false); }
   }
 
-  const startTour = () => { setOpen(false); setMoment(null); guide.start(); };
   const openConversation = () => {
-    const travelling = guide.active || guide.phase === 'intro' || guide.phase === 'settle';
+    const travelling = guide.active || guide.phase === 'intro';
     guide.stop(); setMoment(null);
     if (openTimer.current) clearTimeout(openTimer.current);
     if (travelling && !reduced && !paused) openTimer.current = setTimeout(() => setOpen(true), 800);
@@ -128,7 +127,6 @@ export function PortfolioBot() {
   return <>
     <CompanionGuideUI guide={guide} reduced={Boolean(reduced || paused)} ask={text => { openConversation(); ask(text); }} />
     <motion.aside ref={companion} className={`portfolio-bot ${paused ? 'motion-paused' : ''}`} data-guide={guide.phase} style={{ visibility: guide.phase === 'boot' || guide.phase === 'intro' ? 'hidden' : undefined }} initial={false} animate={{ transform: `translate(${guide.position.x}px, ${guide.position.y}px) scale(${guide.position.scale})` }} transition={{ duration: reduced || paused || guide.phase === 'intro' ? 0 : .8, ease: [.22, 1, .36, 1] }} aria-label="Portfolio companion" data-mood={pending ? 'thinking' : moment?.mood ?? 'idle'}>
-    {guide.phase === 'offer' && !open && <TourInvitation start={startTour} dismiss={guide.stop} navigate={guide.navigate} />}
     <AnimatePresence>
       {moment && !open && !paused && <motion.button className="bot-thought" aria-label="Ask the portfolio companion a question" onClick={openConversation} initial={{ opacity: 0, y: 6, scale: 0.97 }} animate={{ opacity: 1, y: 0, scale: 1 }} exit={{ opacity: 0, y: 3 }} transition={{ duration: 0.2 }}><span>{moment.mood === 'thinking' ? <span className="thinking-dots" aria-hidden><i /><i /><i /></span> : moment.mood === 'wave' ? <HandWaving size={17} /> : null}{moment.text}</span><span className="thought-tail" aria-hidden /></motion.button>}
     </AnimatePresence>

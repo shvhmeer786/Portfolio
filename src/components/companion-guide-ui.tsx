@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useRef } from 'react';
 import { AnimatePresence, motion } from 'motion/react';
-import { ArrowRight, ArrowLeft, X, HandWaving } from '@phosphor-icons/react';
+import { ArrowRight, ArrowLeft, X } from '@phosphor-icons/react';
 import { tourStops } from '@/lib/companion-guide';
 import type { useCompanionGuide } from './use-companion-guide';
 import { PortfolioEntrance } from './portfolio-entrance';
@@ -23,9 +23,4 @@ export function CompanionGuideUI({ guide, reduced, ask }: { guide: Guide; reduce
       </motion.section>}
     </AnimatePresence>
   </>;
-}
-export function TourInvitation({ start, dismiss, navigate }: { start: () => void; dismiss: () => void; navigate: (target: string) => void }) {
-  return <section className="companion-invitation" aria-label="Optional guided tour" data-companion-controls>
-    <button className="invitation-close" aria-label="Dismiss tour invitation" onClick={dismiss}><X size={16} /></button><span className="invitation-eyebrow"><HandWaving size={16} /> A little curious?</span><h2>Want a quick look around?</h2><p>I can introduce the work—and the person behind it.</p><button className="tour-primary" onClick={start}>Show me around <ArrowRight size={16} /></button><button className="invitation-later" onClick={dismiss}>I’ll explore</button><div className="invitation-shortcuts"><button onClick={() => navigate('photos')}>Photos</button><span>·</span><button onClick={() => navigate('experience')}>Experience</button><span>·</span><button onClick={() => navigate('contact')}>Contact</button></div>
-  </section>;
 }
