@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 export default function Home() {
   return <main id="main" className="home-page">
     <div className="hero-band"><section className="home-hero shell" aria-labelledby="intro-heading">
-      <Reveal className="hero-copy"><h1 id="intro-heading">{profile.introduction}</h1><p className="hero-biography">{profile.biography}</p><p className="hero-location">Based in {profile.location}.</p><div className="hero-links"><a className="text-link" href="#experience">View my experience <ArrowUpRight size={18} /></a><a className="text-link secondary-link" href={`mailto:${profile.email}`}>Say hello <ArrowUpRight size={18} /></a></div><SocialLinks /></Reveal>
+      <Reveal className="hero-copy"><h1 id="intro-heading">{profile.introduction}</h1><p className="hero-biography">{profile.biography}</p><p className="hero-location">Based in {profile.location}.</p><div className="hero-links"><a className="text-link" href="#experience">View my experience <ArrowUpRight size={18} /></a><a className="text-link secondary-link" href={`mailto:${profile.email}`}>Say hello <ArrowUpRight size={18} /></a><a className="text-link secondary-link" href="/Shahmeer-Ali-Resume.pdf" target="_blank" rel="noopener noreferrer">Résumé <ArrowUpRight size={18} /><span className="sr-only"> (PDF, opens in a new tab)</span></a></div><SocialLinks /></Reveal>
       <Reveal delay={0.1}><PhotoGallery /></Reveal>
     </section></div>
     <div className="experience-band"><section id="experience" className="experience-section section-gap shell" aria-labelledby="experience-heading"><Reveal><div className="section-heading"><h2 id="experience-heading">Experience</h2><p>Research, building, and learning along the way.</p></div></Reveal>
