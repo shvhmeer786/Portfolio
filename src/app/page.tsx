@@ -30,7 +30,7 @@ export default function Home() {
               </a>
               <div className="experience-info">
                 <h3><a className="experience-company-link" href={entry.href} target="_blank" rel="noopener noreferrer">{entry.organization}</a></h3>
-                <p>{entry.title}</p>
+                {entry.slug !== 'orena' && <p>{entry.title}</p>}
                 {entry.team && <span className="experience-team">{entry.team}</span>}
               </div>
             </div>
